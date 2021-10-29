@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- auto proxy -->
+
+	<!-- validator, conversionService, messageConverter를 자동으로 등록 -->
+	<mvc:annotation-driven>			<!--  어노테이션을 사용하겠다 -->
+		
+	</mvc:annotation-driven>
+
+	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet 위임(Delegate) Handler -->
+	<mvc:default-servlet-handler />
+		<!-- 1. 요청 URL에 매핑되는 컨트롤러를 검색한다.
+		A. 존재할 경우, 컨트롤러를 이용해서 클라이언트 요청을 처리한다.
+		2. 디폴트 서블릿 핸들러가 등록되어 있지 않다면,  "<mvc:default-servlet-handler />"를 써주지 않았다면
+		A. 404응답 에러를 전송한다.
+		3. 디폴트 서블릿 핸들러가 등록되어 있으면, 디폴트 서블릿 핸들러에 요청을 전달한다.
+		A. 디폴트 서블릿 핸들러는 WAS의 디폴트 서블릿에 요청을 전달한다. -->
+	<!-- Interceptors -->
+	
+
+	<!-- ViewResolver 설정 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 멀티파트 리졸버 -->
+
+	<!-- Message Source -->
+	
+	<!-- mvc url-resource mapping -->
+
+
+
+
+	
+
+	
+	<context:annotation-config />
+	
+	<context:component-scan	base-package="com.douzone.jblog.controller, com.douzone.jblog.exception" />
+
+</beans>
