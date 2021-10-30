@@ -28,7 +28,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() { //join.jsp에 	modelAttribute="userVo"때문에 상단 네비 회원가입하기 오류 해결위해 파라미터 추가 
+	public String join(@ModelAttribute UserVo vo) { //join.jsp에 	modelAttribute="userVo"때문에 상단 네비 회원가입하기 오류 해결위해 파라미터 추가 
 		return "user/join";
 	}
 	
@@ -43,10 +43,10 @@ public class UserController {
 //			}
 //			model.addAttribute("userVo", map.get("userVo"));
 			model.addAllAttributes(result.getModel());
-//			// 파라미터 :( @ModelAttribute @Valid UserVo vo) 는 
-//			// model.addAttribute("userVo",vo); 와 같다.
+			// 파라미터 :( @ModelAttribute @Valid UserVo vo) 는 
+			// model.addAttribute("userVo",vo); 와 같다.
 			return "user/join";
-		}		
+		}
 		userService.join(vo);
 		blogService.createBlog(vo.getId());
 		blogService.createCategory(vo.getId());

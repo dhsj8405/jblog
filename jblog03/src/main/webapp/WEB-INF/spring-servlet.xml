@@ -76,7 +76,7 @@
 
 	<!-- 멀티파트 리졸버 -->
 
-	<!-- Message Source -->
+	 <!-- Message Source --> 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
