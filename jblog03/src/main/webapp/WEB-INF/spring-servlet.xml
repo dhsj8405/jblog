@@ -63,6 +63,7 @@
 			<mvc:mapping path="/user/logout" />
 			<bean class="com.douzone.jblog.security.LogoutInterceptor" />
 		</mvc:interceptor>
+
 	</mvc:interceptors>
 
 	<!-- ViewResolver 설정 -->
@@ -98,5 +99,9 @@
 
 	<context:component-scan
 		base-package="com.douzone.jblog.controller, com.douzone.jblog.exception" />
+		
+		
+	<mvc:resources mapping="/images/**"
+		location="file:/upload-images/" />	
 
 </beans>

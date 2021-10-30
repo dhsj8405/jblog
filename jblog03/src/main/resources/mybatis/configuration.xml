@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.douzone.jblog.vo.UserVo" alias="uservo" />
+		<typeAlias type="com.douzone.jblog.vo.BlogVo" alias="blogvo" />
 		
 	</typeAliases>
 	<mappers>

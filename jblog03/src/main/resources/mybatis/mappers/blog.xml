@@ -4,15 +4,23 @@
 	
 	<insert id="create" parameterType ="string">
 	<![CDATA[
-				insert into blog values('', '', #{id})
+		insert into blog values('', '', #{id})
 	]]>
 	</insert>
 	
 	<insert id="basicCategory" parameterType ="string">
 	<![CDATA[
-				insert into category values(null,'미분류', '', #{id})
+		insert into category values(null,'미분류', '', #{id})
 	]]>
 	</insert>
+	
+	<select id ="selectTitle" parameterType = "string" resultType ="blogvo">
+	<![CDATA[
+		select b.title, b.logo, b.id 
+		 from blog b 
+		 where b.id = #{id}
+	]]>
+	</select>
 	
 </mapper>
 	

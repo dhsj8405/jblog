@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.douzone.jblog.repository.BlogRepository;
+import com.douzone.jblog.vo.BlogVo;
 
 @Service
 public class BlogService {
@@ -15,8 +16,13 @@ public class BlogService {
 	}
 
 	public void createCategory(String id) {
-		blogRepository.basicCategory(id);
+		blogRepository.insertBasicCategory(id);
 
+	}
+
+	public BlogVo getTitle(String id) {
+		
+		return blogRepository.getTitle(id);
 	}
 
 }
