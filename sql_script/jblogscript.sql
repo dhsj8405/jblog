@@ -5,7 +5,17 @@ delete from blog;
 
 select * from user;
 select * from blog;
+select * from category;
 
+
+-- id 중복체크
+select id,name,join_date from user where id = 'dhsj8405';
+
+-- 로그인
+select id,name,join_date as joinDate 
+from user u
+where u.id = 'dhsj8405'  
+and u.password = '1234';
 
 
 

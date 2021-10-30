@@ -8,5 +8,20 @@
 	]]>
 	</insert>
 	
+	<select id = "findById" parameterType ="string" resultType ="uservo">
+	<![CDATA[
+		select id,name,join_date as joinDate from user where id = #{id }
+	]]>
+	</select>
+	
+	<select id = "findByIdPassword" parameterType ="map" resultType ="uservo">
+	<![CDATA[
+		select id,name,join_date as joinDate 
+		  from user u
+		 where u.id = #{i}  
+		   and u.password = #{p};
+	]]>
+	</select>
+	
 </mapper>
 	
