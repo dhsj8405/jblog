@@ -13,7 +13,7 @@
 <script>
 $(function(){
 	$("#btn-checkid").click(function(){
-		var id = $("#blog-id").val();		//파라미터 x : 읽어오기
+		var id = $("#id").val();		//파라미터 x : 읽어오기
 		if(id == ''){
 			return;
 		}
@@ -33,7 +33,7 @@ $(function(){
 			}
 			if(response.data){
 				alert("존재하는 아이디 입니다. 다른 아이디를 사용하세요");
-				$("#blog-id").val("").focus();		// val() 파라미터 o : 쓰기
+				$("#id").val("").focus();		// val() 파라미터 o : 쓰기
 				return;
 			}
 			$("#btn-checkid").hide();
