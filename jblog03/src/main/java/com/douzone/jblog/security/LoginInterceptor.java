@@ -10,12 +10,10 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.douzone.jblog.service.UserService;
 import com.douzone.jblog.vo.UserVo;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private UserService userService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -23,6 +21,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		String password = request.getParameter("password");
 		
 		UserVo authUser = userService.getUser(id, password);
+		
 		if(authUser == null) {
 			request.setAttribute("result", "fail");
 			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
@@ -34,6 +33,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authUser", authUser);
+		
+		
 		response.sendRedirect(request.getContextPath());
 		return false;
 		

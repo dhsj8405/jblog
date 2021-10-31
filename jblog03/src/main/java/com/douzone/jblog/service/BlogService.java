@@ -20,7 +20,7 @@ public class BlogService {
 
 	}
 
-	public BlogVo getTitle(String id) {
+	public BlogVo getContents(String id) {
 		
 		return blogRepository.getTitle(id);
 	}
