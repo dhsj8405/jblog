@@ -20,6 +20,8 @@ public class BlogVo {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+	
+	
 	public String getId() {
 		return id;
 	}
@@ -43,5 +45,7 @@ public class BlogVo {
 		return "BlogVo [title=" + title + ", logo=" + logo + ", id=" + id + ", categoryDesc=" + categoryDesc
 				+ ", categoryName=" + categoryName + "]";
 	}
+	
+
 	
 }

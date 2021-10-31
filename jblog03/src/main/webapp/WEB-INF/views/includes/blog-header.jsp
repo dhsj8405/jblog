@@ -12,7 +12,7 @@
 					</c:when>
 					<c:when test="${authUser.id == blogVo.id }">
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-						<li><a href="${pageContext.request.contextPath}/blog/admin?blogId=${authUser.id}">블로그 관리</a></li>
+						<li><a href="${pageContext.request.contextPath}/blog/adminBasic?blogId=${authUser.id}">블로그 관리</a></li>
 					</c:when>
 					<c:otherwise>				
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>

@@ -82,7 +82,16 @@
 	</bean>
 
 	<!-- 멀티파트 리졸버 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
 
+	</bean>
 	 <!-- Message Source --> 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
@@ -94,7 +103,8 @@
 	</bean>
 	
 	<!-- mvc url-resource mapping -->
-
+	<mvc:resources mapping="/images/**"
+		location="file:/jblog03-upload-images/" />	
 
 
 
@@ -107,7 +117,6 @@
 		base-package="com.douzone.jblog.controller, com.douzone.jblog.exception" />
 		
 		
-	<mvc:resources mapping="/images/**"
-		location="file:/upload-images/" />	
+
 
 </beans>

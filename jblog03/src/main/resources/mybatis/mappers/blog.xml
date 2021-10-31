@@ -16,11 +16,41 @@
 	
 	<select id ="selectTitle" parameterType = "string" resultType ="blogvo">
 	<![CDATA[
-		select b.title, b.logo, b.id 
-		 from blog b 
-		 where b.id = #{id}
+		 select title, logo, id 
+		 from blog  
+		 where id = #{id};
 	]]>
 	</select>
+
+	<update id="basicUpdate" parameterType="blogvo">
+		<choose>
+			<when test="logo == null">
+				<![CDATA[
+					update blog 
+					   set title = #{title }
+					 where id = #{id } 
+					  
+				]]>				       
+			</when>
+			<otherwise>
+				<![CDATA[
+					update blog 
+					   set title = #{title }, 
+					       logo = #{logo }       
+					 where id = #{id }
+				]]>
+			</otherwise>
+		</choose>
+	</update>
+	
+	<select id="findAllCateogyr" parameterType="map" resultType="categoryvo">
+		<![CDATA[
+		select no, name, blog_Id as blogId, `desc` as desc
+		  from category
+ 		 where blog_id = ${id };		
+		]]>		
+	</select>
+	
 	
 </mapper>
 	

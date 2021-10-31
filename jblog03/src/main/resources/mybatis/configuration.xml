@@ -4,7 +4,7 @@
 	<typeAliases>
 		<typeAlias type="com.douzone.jblog.vo.UserVo" alias="uservo" />
 		<typeAlias type="com.douzone.jblog.vo.BlogVo" alias="blogvo" />
-		
+		<typeAlias type="com.douzone.jblog.vo.CategoryVo" alias="categoryvo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
