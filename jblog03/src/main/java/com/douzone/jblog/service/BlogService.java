@@ -3,6 +3,7 @@ package com.douzone.jblog.service;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -77,11 +78,22 @@ public class BlogService {
 		return filename;
 	}
 
-	public Map<String, Object> getCategories(String id) {
-		Map<String, Object> map = new HashMap<String, Object>();
+//	public Map<String, Object>  getCategories(String id) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		List<CategoryVo> list = blogRepository.findAllCategory(id);
+//		
+//		
+//		
+//		return map; 
+//	}
+	public List<CategoryVo> getCategories(String id) {
 
-		List<CategoryVo> list = blogRepository.findCategory(id);
-		map.put("categoryList", list);
-		return map;
+		return blogRepository.findAllCategory(id);
 	}
+
+	public void addCategory(CategoryVo categoryVo) {
+		blogRepository.insertCategory(categoryVo);
+	}
+
 }

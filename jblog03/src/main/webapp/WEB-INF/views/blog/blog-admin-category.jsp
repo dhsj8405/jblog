@@ -24,33 +24,37 @@
 		      			<th>설명</th>
 		      			<th>삭제</th>      			
 		      		</tr>
-				<!--<c:forEach items="${map.list }"	var="vo" varStatus="status">			-->
+				<c:forEach items="${categoryList }"	var="vo" varStatus="status">	
 				
 					<tr>
-						<td>sssss</td>
-						<td>cccc</td>
-						<td>cccc</td>
-						<td>카테고리를 지정하지 않은 경우</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+						<td>${status.index}</td>
+						<td>${vo.name }</td>
+						<td>${vo.postCount }</td>
+						<td>${vo.description}</td>
+						<!-- <td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>-->
+						<td><a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" style="background-image:url(${pageContext.request.contextPath }/assets/images/delete.jpg)">삭제</a></td>
+
 					</tr>  	
-				<!--</c:forEach>-->				  
+				</c:forEach>				  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-		      	<table id="admin-cat-add">
-		      		<tr>
-		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
-		      		</tr>
-		      		<tr>
-		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
-		      		</tr>      		      		
-		      	</table> 
+      			<form action="${pageContext.request.contextPath}/blog/adminCategory?blogId=${blogVo.id }" method="post" >
+			      	<table id="admin-cat-add">
+			      		<tr>
+			      			<td class="t">카테고리명</td>
+			      			<td><input type="text" name="name"></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="t">설명</td>
+			      			<td><input type="text" name="description"></td>
+			      		</tr>
+			      		<tr>
+			      			<td class="s">&nbsp;</td>
+			      			<td><input type="submit" value="카테고리 추가"></td>
+			      		</tr>      		      		
+			      	</table> 
+			      </form>
 			</div>
 		</div>
 		<div id="footer">

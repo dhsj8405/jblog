@@ -28,7 +28,7 @@ public class BlogRepository {
 
 
 	public BlogVo findTitle(String id) {
-		return sqlSession.selectOne("selectTitle",id);
+		return sqlSession.selectOne("blog.selectTitle",id);
 	}
 
 
@@ -36,11 +36,17 @@ public class BlogRepository {
 		sqlSession.insert("blog.basicUpdate",blogVo);
 	}
 
-
-	public List<CategoryVo> findCategory(String id) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put( "id", id);
-		return sqlSession.selectList( "board.findAllCategory", map );
+	public List<CategoryVo> findAllCategory(String id) {
+		return sqlSession.selectList("blog.selectCategory",id);
 	}
+
+
+	public void insertCategory(CategoryVo categoryVo) {	
+		sqlSession.insert("blog.insertCategory",categoryVo);
+
+	}
+
+
+	
 
 }

@@ -1,8 +1,11 @@
 package com.douzone.jblog.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +15,7 @@ import com.douzone.jblog.security.Auth;
 import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.vo.BlogVo;
+import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.UserVo;
 
 
@@ -44,7 +48,7 @@ public class BlogController {
 		model.addAttribute("blogVo", blogVo);
 		return "blog/blog-admin-basic";
 	}
-	
+	@Auth
 	@RequestMapping(value="/adminBasic", method=RequestMethod.POST)
 	public String upload(
 			BlogVo blogVo,
@@ -57,19 +61,35 @@ public class BlogController {
 	}
 	
 	@Auth
-	@RequestMapping("/adminCategory")
+	@RequestMapping(value="/adminCategory", method=RequestMethod.GET)
 	public String category(
 			Model model,
 			@RequestParam(value = "blogId", required = true, defaultValue = "") String id) {
 		BlogVo blogVo = blogService.getContents(id);
-//		Map<String, Object> map = blogService.getCategories(id);
-//		model.addAttribute("map", map);
+		List<CategoryVo> categoryList = blogService.getCategories(id);
+
+		model.addAttribute("categoryList",categoryList);
 		model.addAttribute("blogVo", blogVo);
 		return "blog/blog-admin-category";
 	}
 	
+	@Auth
+	@RequestMapping(value="/adminCategory", method=RequestMethod.POST)
+	public String category(
+			@ModelAttribute CategoryVo categoryVo
+			/*,@RequestParam(value = "blogId", required = true, defaultValue = "") String id*/) {
+			
+			blogService.addCategory(categoryVo);
+			
+		return "redirect:/blog/adminCategory?blogId="+categoryVo.getBlogId(); 
+	}
 	
-	
+	@Auth
+	@RequestMapping(value="/categoryDelete", method=RequestMethod.GET)
+	public String categoryDelete(
+						
+		return null; 
+	}
 	
 	@Auth 
 	@RequestMapping("/adminWrite")

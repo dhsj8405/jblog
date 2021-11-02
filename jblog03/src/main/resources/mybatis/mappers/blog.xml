@@ -43,14 +43,29 @@
 		</choose>
 	</update>
 	
-	<select id="findAllCateogyr" parameterType="map" resultType="categoryvo">
+	<select id="selectCategory" parameterType="string" resultType="categoryvo">
 		<![CDATA[
-		select no, name, blog_Id as blogId, `desc` as desc
-		  from category
- 		 where blog_id = ${id };		
+					select c.no as no,
+						   c.name as name,
+						   c.`desc` as description, 
+						   c.blog_id as blogId ,
+						   p.post_count as postCount
+		  			  from category c 
+			  	    	LEFT JOIN (
+			  	     			 select count(*) as post_count ,
+			  	    			        category_no
+			  	    			   from post 
+			  	    		   group by category_no) p
+			  	              	ON p.category_no =c.no
+		   		     where c.blog_id = #{id }
 		]]>		
 	</select>
 	
+	<insert id="insertCategory" parameterType ="categoryvo">
+		<![CDATA[
+			insert into category values(null, #{name} , #{description}, #{blogId } )
+		]]>
+	</insert>
 	
 </mapper>
 	
