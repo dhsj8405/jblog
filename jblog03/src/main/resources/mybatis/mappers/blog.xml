@@ -67,5 +67,10 @@
 		]]>
 	</insert>
 	
+	<delete id="deleteCategory" parameterType="string" > 
+		<![CDATA[
+			delete from category where no = #{categoryNo }
+		]]>	
+	</delete>
 </mapper>
 	

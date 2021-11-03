@@ -63,6 +63,10 @@
 			<mvc:mapping path="/user/logout" />
 			<bean class="com.douzone.jblog.security.LogoutInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/blog/**" />
+			<bean class="com.douzone.jblog.interceptor.BlogInterceptor" />
+		</mvc:interceptor>
 	<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/user/auth" />

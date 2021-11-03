@@ -5,23 +5,22 @@
 
 <div id="header">
 			<ul>
-
 				<c:choose>				
 					<c:when test="${empty authUser}">
 						<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
 					</c:when>
 					<c:when test="${authUser.id == blogVo.id }">
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-						<li><a href="${pageContext.request.contextPath}/blog/adminBasic?blogId=${authUser.id}">블로그 관리</a></li>
+						<li><a href="${pageContext.request.contextPath}/blog/adminBasic/${authUser.id}">블로그 관리</a></li>
 					</c:when>
 					<c:otherwise>				
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-						<li><a href="${pageContext.request.contextPath}/blog?blogId=${authUser.id}">내블로그</a></li>			
+						<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}">내블로그</a></li>			
 					</c:otherwise>
 				</c:choose>
 
-				<li><a href="${pageContext.request.contextPath}/blog?blogId=${blogVo.id}">HOME</a></li>
+				<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}">HOME</a></li>
 				<li><a href="${pageContext.request.contextPath}">Jblog</a></li>
 			</ul>
-			<h1><a href = "${pageContext.request.contextPath}/blog?blogId=${blogVo.id}">${blogVo.title }</a></h1>
+			<h1><a href = "${pageContext.request.contextPath}/blog/${blogVo.id}">${blogVo.title }</a></h1>
 		</div>

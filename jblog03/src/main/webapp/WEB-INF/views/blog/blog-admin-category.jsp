@@ -32,14 +32,17 @@
 						<td>${vo.postCount }</td>
 						<td>${vo.description}</td>
 						<!-- <td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>-->
-						<td><a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" style="background-image:url(${pageContext.request.contextPath }/assets/images/delete.jpg)">삭제</a></td>
-
+						<td>
+							<c:if test="${empty vo.postCount  }">
+								<a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" class="del" style="background-image:url(${pageContext.request.contextPath }/assets/images/delete.jpg)">삭제</a>
+							</c:if>
+						</td>
 					</tr>  	
 				</c:forEach>				  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath}/blog/adminCategory?blogId=${blogVo.id }" method="post" >
+      			<form action="${pageContext.request.contextPath}/blog/adminCategory/${blogVo.id }" method="post" >
 			      	<table id="admin-cat-add">
 			      		<tr>
 			      			<td class="t">카테고리명</td>

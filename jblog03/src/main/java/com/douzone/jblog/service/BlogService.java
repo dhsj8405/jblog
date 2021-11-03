@@ -96,4 +96,8 @@ public class BlogService {
 		blogRepository.insertCategory(categoryVo);
 	}
 
+	public void removeCategory(String categoryNo) {
+		blogRepository.deleteCategory(categoryNo);
+	}
+
 }

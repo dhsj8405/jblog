@@ -15,7 +15,7 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<h4>${blogVo.title }</h4>
+					<h4>포스트 제목</h4>
 						
 					<p>
 						스프링 캠프에서는 JVM(Java Virtual Machine) 기반 시스템의 백엔드(Back-end) 또는 서버사이드(Server-side)라고 칭하는 영역을 개발하는 애플리케이션 서버 개발에 관한 기술과 정보, 경험을 공유하는 컨퍼런스입니다.<br>
@@ -43,11 +43,11 @@
 		<div id="navigation">
 			<h2>카테고리</h2>
 			<ul>
-				<li><a href=""></a></li>
-				<li><a href="">닥치고 스프링</a></li>
-				<li><a href="">스프링 스터디</a></li>
-				<li><a href="">스프링 프로젝트</a></li>
-				<li><a href="">기타</a></li>
+	
+				<c:forEach items="${map.categoryList }"	var="vo" varStatus="status">			
+			
+					<li><a href="">${vo.name}</a></li>
+				</c:forEach>
 			</ul>
 		</div>
 		
