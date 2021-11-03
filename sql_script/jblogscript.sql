@@ -26,6 +26,9 @@ from category c
 select * from category;
 select * from post;
 
+delete from post where category_no = '';
+
+
 -- 카테고리 리스트 ( 포스트수 포함)
 select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
   from category c LEFT JOIN
@@ -39,12 +42,35 @@ select c.no,c.name,  c.`desc`, c.blog_id  from category c, post p
 where c.blog_id = 'dhsj8405'
 and  c.no = p.category_no;
 
+-- 카테고리 추가
+select * from category;
+insert into category values(null, 'inserttest01' , 'inserttest01', 'dhsj8405' );
+
+-- 카테고리 삭제
+delete from post where category_no = '4';
+delete from category where no = '4';
+
+select * from post;
+		   
+select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
+  from category c LEFT JOIN
+  (select count(*) as post_count, category_no from post
+  group by category_no) p ON  
+  p.category_no =c.no;
 
 
+-- 카테고리 삭제(포스트 없는 카테고리만)
+delete from p, c
+USING category as c LEFT JOIN post as p on c.no = p.category_no
+where c.no = '9';
 
+delete c, p from category c LEFT JOIN post p ON c.no = p.category_no where c.no ='9';
 
+-- 테스트 데이터 추가
 
-insert into post values(null, '미분류포스트타이틀1' ,'미분류포스트본문1', now(),'1');
+-- 포스트 추가 (마지막 :카테고리 넘버)
+select * from post;
+insert into post values(null, 'inserttest01포스트타이틀' ,'inserttest01포스트본문', now(),'9');
 insert into post values(null, 'ehdgus8405post2title' ,'ehdgus8405post2contents', now(),'7');
 
 insert into category values(null, 'ehdgus8405카테고리1', 'ehdgus8405본문1','ehdgus8405') ;
