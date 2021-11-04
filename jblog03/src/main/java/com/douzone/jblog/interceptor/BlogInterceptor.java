@@ -90,7 +90,7 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		map.put("post", post);
 		servletContext.setAttribute("map",map);
 
-		
+		System.out.println("**********************");
 		return true;
 
 	}

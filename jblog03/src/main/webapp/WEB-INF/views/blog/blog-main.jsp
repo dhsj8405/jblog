@@ -15,16 +15,30 @@
 		<div id="wrapper">
 			<div id="content">
 				<ul class="blog-list">
-				<c:forEach items="${map.postList}" var= "postVo">
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${map.selectedCategoryNo }/${postVo.no}">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
-				</c:forEach>
-				
+				<c:if test="${empty map.postList} ">
+					<li>포스트가 없습니다.</li>
+				</c:if>
+				<c:if test="${ map.postList != null }">
+					<c:forEach items="${map.postList}" var= "postVo">
+						<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${map.selectedCategoryNo }/${postVo.no}">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
+					</c:forEach>	
+				</c:if>
+								
 				</ul>
 				<div class="blog-content">
-					<h4>${map.post.title }</h4>
-					<p>
-						${map.post.contents }
-					<p>
+					<c:if test="${empty map.post} ">
+						<h4>포스트를 입력해주세요</h4>
+						<p>
+							포스트 내용을 입력해주세요
+						<p>
+					</c:if>
+					<c:if test="${map.post != null}">
+						<h4>${map.post.title }</h4>
+						<p>
+							${map.post.contents }
+						<p>
+					</c:if>
+					
 				</div>
 				
 			</div>
