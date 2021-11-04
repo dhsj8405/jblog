@@ -17,6 +17,8 @@ import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 
 public class BlogInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
@@ -60,37 +62,33 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		}else {
 			
 			categoryNo = categoryList.get(0).getNo();			//기본 메인 포스트는 미분류 카테고리의 포스트
+			
 		}
 		
 		postList= blogService.getContents(categoryNo);
 		
-		
+
 		
 		if(pathVariables.get("postNo") != null) {
-			System.out.println(postList.get(0));
-			
 			int postNo = Integer.parseInt((String)pathVariables.get("postNo"));
-			post = postList.get(postNo);
+			int index = 0;
+			
+			for(PostVo postVo: postList) {
+				if(postVo.getNo() == postNo) {
+					post = postList.get(index);
+				}
+				index++;
+			}
+						
 		}else {
 			post = postList.get(0);
 		}
 		
-
-		
-		
-		
+		map.put("selectedCategoryNo", categoryNo);
 		map.put("categoryList", categoryList);
 		map.put("postList", postList);
 		map.put("post", post);
 		servletContext.setAttribute("map",map);
-		System.out.println(map);
-//		if(pathVariables.get("PostNo") != null) {
-//			
-//		}
-//		
-//		
-
-
 
 		
 		return true;

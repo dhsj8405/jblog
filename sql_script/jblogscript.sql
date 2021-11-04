@@ -26,7 +26,7 @@ from category c
 select * from category;
 select * from post;
 
-delete from post where category_no = '';
+delete from category where no = '12';
 
 
 -- 카테고리 리스트 ( 포스트수 포함)
@@ -107,8 +107,11 @@ insert into category values(null, '카테고리1', '본문1','dhsj8405') ;
 insert into category values(null, '카테고리2', '본문2','dhsj8405') ;
 
 
+-- 포스트 불러오기
+select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post ;
+where category_no ='5';
 
-
+select * from post;
 
 
 

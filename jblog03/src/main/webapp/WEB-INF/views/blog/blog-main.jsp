@@ -16,13 +16,12 @@
 			<div id="content">
 				<ul class="blog-list">
 				<c:forEach items="${map.postList}" var= "postVo">
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
+					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${map.selectedCategoryNo }/${postVo.no}">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
 				</c:forEach>
 				
 				</ul>
 				<div class="blog-content">
 					<h4>${map.post.title }</h4>
-						
 					<p>
 						${map.post.contents }
 					<p>
@@ -41,9 +40,9 @@
 			<h2>카테고리</h2>
 			<ul>
 	
-				<c:forEach items="${map.categoryList }"	var="vo" varStatus="status">			
+				<c:forEach items="${map.categoryList }"	var="categoryVo" varStatus="status">			
 			
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${vo.no}">${vo.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${categoryVo.no}">${categoryVo.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
