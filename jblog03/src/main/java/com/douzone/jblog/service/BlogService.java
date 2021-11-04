@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.douzone.jblog.repository.BlogRepository;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 
 @Service
 public class BlogService {
@@ -98,6 +99,14 @@ public class BlogService {
 
 	public void removeCategory(String categoryNo) {
 		blogRepository.deleteCategory(categoryNo);
+	}
+
+	public void addPost(PostVo postVo) {
+		blogRepository.insertPost(postVo);
+	}
+
+	public List<PostVo> getContents(Long categoryNo) {
+		return blogRepository.findAll(categoryNo);
 	}
 
 }

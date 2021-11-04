@@ -72,5 +72,17 @@
 			delete from category where no = #{categoryNo }
 		]]>	
 	</delete>
+	
+	<insert id ="insertPost" parameterType="postvo">
+		<![CDATA[
+			insert into post values(null, #{title }, #{contents }, now() , #{categoryNo} )
+		]]>	
+	</insert>
+	<select id ="selectPost" parameterType="long" resultType ="postvo">
+		<![CDATA[
+			select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
+			where category_no = #{categoryNo }
+		]]>	
+	</select>
 </mapper>
 	

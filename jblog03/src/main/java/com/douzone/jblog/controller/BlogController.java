@@ -22,6 +22,7 @@ import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
 
@@ -41,12 +42,6 @@ public class BlogController {
 			Model model
 			/*@RequestParam(value = "blogId", required = true, defaultValue = "") String id*/) {
 
-		List<CategoryVo> categoryList = blogService.getCategories(blogId);
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("categoryList", categoryList);
-		
-		model.addAttribute("map",map);
 		
 		return "blog/blog-main";
 	}
@@ -108,13 +103,31 @@ public class BlogController {
 	}
 	
 	@Auth 
-	@RequestMapping("/adminWrite/{blogId}")
+	@RequestMapping(value="/adminWrite/{blogId}", method=RequestMethod.GET)
 	public String write(
 			Model model,
 			@PathVariable("blogId") String blogId) {
+		List<CategoryVo> categoryList = blogService.getCategories(blogId);
+		Map<String, Object> map = new HashMap<>();
+		map.put("categoryList", categoryList);
+		model.addAttribute("map",map);
+		
 		
 		return "blog/blog-admin-write";
 	}
+	
+	@Auth 
+	@RequestMapping(value="/adminWrite/{blogId}",method=RequestMethod.POST)
+	public String write(
+			@ModelAttribute PostVo postVo,
+			Model model,
+			@PathVariable("blogId") String blogId
+			/*@RequestParam(value = "categoryNo", required = true, defaultValue = "") int categoryNo*/) {
+			blogService.addPost(postVo);
+		return "redirect:/blog/adminWrite/" + blogId; 
+	}
+	
+
 	
 	
 }

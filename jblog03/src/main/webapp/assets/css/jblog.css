@@ -55,6 +55,7 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 
 div#container				{ width:920px; margin:0 auto }
 div#header					{ height:120px; background: #5394CC;  }
+
 div#content					{ float:left; width:720px; min-height:220px }
 div#content.full-screen		{ float:none; width:920px;}
 div#navigation				{ float:right; width:200px }
@@ -62,10 +63,12 @@ div#extra					{ float:right; clear:right; width:200px }
 div#footer					{ clear:both; width:100% }
 
 /* header */
-div#header h1		{ text-align:center; line-height:100px; margin:0; color:#fff }
-div#header ul		{ height:20px } 
-div#header li		{ float:right; margin-right:10px; }
-div#header li a 	{ color:#fff; font-weight:bold; text-decoration:none; }
+div#header h1			{ text-align:center; line-height:100px; margin:0; color:#fff }
+div#header ul			{ height:20px } 
+div#header li			{ float:right; margin-right:10px; }
+div#header li a 		{ color: #D8D8D8; font-weight:bold; text-decoration:none; font-size:12px }
+div#header li a:hover	{ color: #fff; text-decoration:none;}
+
 
 #header h1 a:hover	 { color:#79B30B; text-decoration:none  }
 #header h1 a:link	 { color:#79B30B; text-decoration:none  }
@@ -100,6 +103,14 @@ div#content .admin-menu a				{ font-weight:bold }
 div#content .admin-config,
 div#content .admin-cat-add,
 div#content .admin-cat					{ border:none; width:720px; margin-top:30px }
+div#content .admin-cat .del				{background: url("/jblog03/assets/images/delete.jpg") no-repeat 0 0;
+										 display:block;
+										 width:20px;
+										 height:20px;
+										 font-size:0; }
+
+	
+
 
 .admin-config td.t						{ padding:5px 0; width:75px }
 .admin-config td.s						{ padding:20px 0 10px 0; }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.douzone.jblog.exception.BlogRepositoryException;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
+import com.douzone.jblog.vo.PostVo;
 
 @Repository
 public class BlogRepository {
@@ -48,6 +49,16 @@ public class BlogRepository {
 
 	public void deleteCategory(String categoryNo) throws BlogRepositoryException{
 		sqlSession.delete("blog.deleteCategory",categoryNo);
+	}
+
+
+	public void insertPost(PostVo postVo) {
+		sqlSession.insert("blog.insertPost",postVo);
+	}
+
+
+	public List<PostVo> findAll(Long categoryNo) {
+		return sqlSession.selectList("blog.selectPost",categoryNo);
 	}
 
 

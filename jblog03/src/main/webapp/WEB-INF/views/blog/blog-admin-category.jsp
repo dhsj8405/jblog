@@ -34,7 +34,7 @@
 						<!-- <td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>-->
 						<td>
 							<c:if test="${empty vo.postCount  }">
-								<a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" class="del" style="background-image:url(${pageContext.request.contextPath }/assets/images/delete.jpg)">삭제</a>
+								<a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" class="del" >삭제</a>
 							</c:if>
 						</td>
 					</tr>  	
