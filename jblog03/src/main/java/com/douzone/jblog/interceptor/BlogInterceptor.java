@@ -37,7 +37,7 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		List<CategoryVo> categoryList = null;
 		Map<String, Object> map = new HashMap<>();
 		List<PostVo> postList = null;
-
+		
 //		if(pathVariables.get("blogId") != null) {
 //			UserVo authUser = null;
 //			HttpSession session = request.getSession(true);
@@ -52,9 +52,7 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		blogVo = blogService.getContents(blogId);
 		servletContext.setAttribute("blogVo", blogVo);
 //		}
-		
 		categoryList = blogService.getCategories(blogId);
-		
 		
 		if(pathVariables.get("categoryNo") != null) {
 			categoryNo = Long.parseLong((String)pathVariables.get("categoryNo") );
@@ -67,6 +65,20 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		
 		postList= blogService.getContents(categoryNo);
 		
+//		if(!postList.isEmpty()) {
+//			post = postList.get(0);	
+//			
+//		}else if(pathVariables.get("postNo") != null) {
+//			int postNo = Integer.parseInt((String)pathVariables.get("postNo"));
+//			int index = 0;
+//			
+//			for(PostVo postVo: postList) {
+//				if(postVo.getNo() == postNo) {
+//					post = postList.get(index);
+//				}
+//				index++;
+//			}
+//		}
 
 		
 		if(pathVariables.get("postNo") != null) {
@@ -81,7 +93,9 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 			}
 						
 		}else {
-			post = postList.get(0);
+			if(!postList.isEmpty()) {
+				post = postList.get(0);	
+			}
 		}
 		
 		map.put("selectedCategoryNo", categoryNo);
@@ -90,7 +104,9 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		map.put("post", post);
 		servletContext.setAttribute("map",map);
 
-		System.out.println("**********************");
+//		System.out.println("**********************");
+//		System.out.println(map.get(postList));
+//		System.out.println(map.get(post));
 		return true;
 
 	}
