@@ -12,6 +12,9 @@
 <script>
 $(function(){
 	$("#categoryName").blur(function(){
+		$('#enabled-btn-check-category').hide();
+		$('#disabled-btn-check-category').show();
+
 		var categoryName = $("#categoryName").val();		//파라미터 x : 읽어오기
 		$('#checkCategory').html( ' ' );
 
@@ -32,8 +35,6 @@ $(function(){
 					return;
 				}
 				if(response.data){
-					$('#disabled-btn-check-category').show();
-					$('#enabled-btn-check-category').hide();
 					$('#checkCategory').html( '카테고리 이름은 중복될 수 없습니다.' );
 					return;
 				}
