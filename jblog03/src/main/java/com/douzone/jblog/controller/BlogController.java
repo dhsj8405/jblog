@@ -51,7 +51,6 @@ public class BlogController {
 		categoryList = blogService.getCategories(blogId);
 		if(categoryNo.isPresent()) {
 			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
-			System.out.println(selectedCategoryNo);
 			postList = blogService.getContents(selectedCategoryNo);
 		}else {
 			selectedCategoryNo = categoryList.get(0).getNo();
