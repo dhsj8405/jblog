@@ -1,7 +1,7 @@
 
 /* reset */
 *				{ margin:0; padding:0 }
-body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; color:#111 }
+body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; color:#111; }
 ul, ol			{ list-style-type: none }
 fieldset		{ border:none }
 
@@ -53,7 +53,7 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 
 
 
-div#container				{ width:920px; margin:0 auto }
+div#container				{ width:920px; height:1080px; ;margin:0 auto }
 div#header					{ height:120px; background: #5394CC;  }
 
 div#content					{ float:left; width:720px; min-height:220px }
@@ -82,6 +82,12 @@ div#container		{ text-align:left }
 div#content	.blog-content	{ padding:10px }
 .blog-content h4			{ font-size:1.3em; color:#9D96D0 }
 .blog-content p				{ margin-top:10px; line-height:150% }
+.blog-content .post-del		{ background: url("/jblog03/assets/images/delete.jpg") no-repeat 0 0;
+							  display:block;
+ 							  width:20px;
+							  height:20px;
+							  font-size:0; 
+							  float: right;}
 div#content .blog-list		{ margin:20px 0 10px 10px }
 .blog-list 					{ width:100% }
 .blog-list li				{ height:20px; clear:both; }

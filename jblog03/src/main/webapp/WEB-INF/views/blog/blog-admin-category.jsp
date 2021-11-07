@@ -8,6 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+
 </head>
 <body>
 	<div id="container">
@@ -31,9 +33,8 @@
 						<td>${vo.name }</td>
 						<td>${vo.postCount }</td>
 						<td>${vo.description}</td>
-						<!-- <td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>-->
 						<td>
-							<c:if test="${empty vo.postCount  }">
+							<c:if test="${empty vo.postCount && vo.name != '미분류' }">
 								<a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" class="del" >삭제</a>
 							</c:if>
 						</td>
@@ -42,11 +43,11 @@
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath}/blog/adminCategory/${blogVo.id }" method="post" >
+      			 <form action="${pageContext.request.contextPath}/blog/adminCategory/${blogVo.id }" method="post" > 
 			      	<table id="admin-cat-add">
 			      		<tr>
 			      			<td class="t">카테고리명</td>
-			      			<td><input type="text" name="name"></td>
+			      			<td><input id="categoryName" type="text" name="name"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">설명</td>
@@ -54,10 +55,10 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="s">&nbsp;</td>
-			      			<td><input type="submit" value="카테고리 추가"></td>
+			      			<td><input id ="btn-check-category" type="submit" value="카테고리 추가"></td>
 			      		</tr>      		      		
 			      	</table> 
-			      </form>
+			       </form>
 			</div>
 		</div>
 		<div id="footer">

@@ -64,7 +64,7 @@
 			<bean class="com.douzone.jblog.security.LogoutInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/blog/**" />
+			<mvc:mapping path="/blog/**" />			
 			<bean class="com.douzone.jblog.interceptor.BlogInterceptor" />
 		</mvc:interceptor>
 	<mvc:interceptor>

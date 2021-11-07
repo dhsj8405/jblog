@@ -113,19 +113,6 @@ public class BlogService {
 		blogRepository.deletePost(postNo);
 	}
 
-	public PostVo getPostFromList(List<PostVo> postList, int postNo) {
-		PostVo post = null;
-		int index = 0;
-		
-		for(PostVo postVo: postList) {
-			if(postVo.getNo() == postNo) {
-				post = postList.get(index);
-			}
-			index++;
-		}
-		return post;
-	}
-
 
 
 }

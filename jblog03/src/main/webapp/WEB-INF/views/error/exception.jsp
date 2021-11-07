@@ -10,9 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Exception Occurs</h1>
-	<pre style = 'color:red'>
-		${exception }
-	</pre>
+	<h1>에러가 발생했습니다. 잠시 후 다시 시도해주세요</h1>
+
 </body>
 </html>

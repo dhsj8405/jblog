@@ -46,9 +46,7 @@ and  c.no = p.category_no;
 select * from category;
 insert into category values(null, 'inserttest01' , 'inserttest01', 'dhsj8405' );
 
--- 카테고리 삭제
-delete from post where category_no = '4';
-delete from category where no = '4';
+
 
 select * from post;
 		   
@@ -58,8 +56,14 @@ select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
   group by category_no) p ON  
   p.category_no =c.no;
 
+-- 카테고리 삭제 (포스트없이)
+delete from post where category_no = '4';
+delete from category where no = '17' and category.name != '미분류';
+select * from category;
 
--- 카테고리 삭제(포스트 없는 카테고리만)
+
+
+-- 카테고리 삭제(포스트 포함 구현중)
 delete from p, c
 USING category as c LEFT JOIN post as p on c.no = p.category_no
 where c.no = '9';
@@ -103,12 +107,12 @@ where u.id = 'dhsj8405'
 and u.password = '1234';
 
 -- 카테고리 추가
-insert into category values(null, '카테고리1', '본문1','dhsj8405') ;
+insert into category values(null, '미분류', '','babo') ;
 insert into category values(null, '카테고리2', '본문2','dhsj8405') ;
 
 
 -- 포스트 불러오기
-select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post ;
+select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
 where category_no ='5';
 
 select * from post;
