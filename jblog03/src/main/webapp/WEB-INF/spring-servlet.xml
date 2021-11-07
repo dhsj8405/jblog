@@ -65,6 +65,7 @@
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/blog/**" />			
+			<mvc:exclude-mapping path="/blog/api/**" />
 			<bean class="com.douzone.jblog.interceptor.BlogInterceptor" />
 		</mvc:interceptor>
 	<mvc:interceptor>

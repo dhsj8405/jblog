@@ -37,6 +37,12 @@ select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
   p.category_no =c.no
   where c.blog_id = 'dhsj8405';
   
+  -- 카테고리 select(카테고리 이름입력했을때 비교하기)
+  select no,name,`desc` as description ,blog_id as blogId from category
+  where category.name = '미분류'
+  and blog_id = 'dhsj8405';
+select * from category;  
+  
 -- 카테고리 출력 ( 포스트수 x)
 select c.no,c.name,  c.`desc`, c.blog_id  from category c, post p
 where c.blog_id = 'dhsj8405'
@@ -58,8 +64,9 @@ select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
 
 -- 카테고리 삭제 (포스트없이)
 delete from post where category_no = '4';
-delete from category where no = '17' and category.name != '미분류';
+delete from category where no = '27' and category.name != '미분류';
 select * from category;
+
 
 
 
@@ -117,5 +124,6 @@ where category_no ='5';
 
 select * from post;
 
-
+-- 포스트 삭제
+delete from post where no = '15';
 

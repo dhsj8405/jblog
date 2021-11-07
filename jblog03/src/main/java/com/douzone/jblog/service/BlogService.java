@@ -127,5 +127,10 @@ public class BlogService {
 	}
 
 
+	public CategoryVo getCategory(String categoryName, String blogId) {
+		return blogRepository.findCategoryByName(categoryName, blogId);
+	}
+
+
 
 }

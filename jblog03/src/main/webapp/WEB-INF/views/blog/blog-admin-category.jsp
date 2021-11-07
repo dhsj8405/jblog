@@ -9,7 +9,44 @@
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
 <script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+$(function(){
+	$("#categoryName").blur(function(){
+		var categoryName = $("#categoryName").val();		//파라미터 x : 읽어오기
+		$('#checkCategory').html( ' ' );
 
+		categoryName = $.trim( $("#categoryName").val());
+		if(categoryName == ''){
+			return;
+		}
+		$.ajax({ 
+			url: "${pageContext.request.contextPath }/blog/api/checkCategory?categoryName="+categoryName,
+			type: "get",
+			dataType: "json",
+			error: function(xhr, status, e){
+				console.log(status, e);
+			},
+			success: function(response){
+				if(response.result != "success"){
+					console.error(response.message);
+					return;
+				}
+				if(response.data){
+					$('#disabled-btn-check-category').show();
+					$('#enabled-btn-check-category').hide();
+					$('#checkCategory').html( '카테고리 이름은 중복될 수 없습니다.' );
+					return;
+				}
+				$('#checkCategory').html( ' ' );
+				$('#disabled-btn-check-category').hide();
+				$('#enabled-btn-check-category').show();
+
+			}
+		});
+	});	
+});
+
+</script>
 </head>
 <body>
 	<div id="container">
@@ -47,7 +84,10 @@
 			      	<table id="admin-cat-add">
 			      		<tr>
 			      			<td class="t">카테고리명</td>
-			      			<td><input id="categoryName" type="text" name="name"></td>
+			      			<td><input id="categoryName" type="text" name="name">
+			      				<div id = "checkCategory"></div>
+			      			</td>
+			      			
 			      		</tr>
 			      		<tr>
 			      			<td class="t">설명</td>
@@ -55,8 +95,16 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="s">&nbsp;</td>
-			      			<td><input id ="btn-check-category" type="submit" value="카테고리 추가"></td>
-			      		</tr>      		      		
+			      			<!-- <td><input id ="disabled-btn-check-category" type="submit" value="카테고리 추가"></td>-->
+			      			<td>
+				      			<input id ="disabled-btn-check-category" type="submit" disabled value="카테고리 추가">
+			      				<input id ="enabled-btn-check-category" type="submit" value="카테고리 추가" style= 'display: none'>
+			      			
+			      			</td>
+			      			
+			      			
+			      		</tr>
+			      		      		      		
 			      	</table> 
 			       </form>
 			</div>

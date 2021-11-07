@@ -32,8 +32,10 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		if(blog == null) {
 			BlogVo blogVo = blogService.getContents(urlBlogId);	
 			servletContext.setAttribute("blogVo",blogVo);
+			System.out.println("1");
 		}
 		// 블로그 변경시 저장된 blogVo 수정
+
 		if(blog.getId()!=urlBlogId) {		
 			BlogVo blogVo = blogService.getContents(urlBlogId);	
 			servletContext.setAttribute("blogVo",blogVo);

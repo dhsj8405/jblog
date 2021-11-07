@@ -132,6 +132,7 @@ public class BlogController {
 	public String write(
 			Model model,
 			@PathVariable("blogId") String blogId) {
+		
 		List<CategoryVo> categoryList = blogService.getCategories(blogId);
 		model.addAttribute("categoryList",categoryList);
 

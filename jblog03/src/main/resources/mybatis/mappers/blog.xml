@@ -89,7 +89,14 @@
 			delete from post where no = #{postNo};
 		]]>
 	</delete>
-	
+	<select id = "selectCategoryByName" parameterType = "map" resultType = "categoryvo">
+		<![CDATA[
+			select no,name,`desc` as description ,blog_id as blogId 
+			  from category 
+			 where category.name = #{categoryName}
+			   and blog_id = #{blogId}
+		]]>
+	</select>
 	
 </mapper>
 	
