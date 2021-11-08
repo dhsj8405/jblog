@@ -58,8 +58,11 @@ public class BlogRepository {
 		sqlSession.insert("blog.insertPost",postVo);
 	}
 
-	public List<PostVo> findAll(Long categoryNo) {
-		return sqlSession.selectList("blog.selectPost",categoryNo);
+	public List<PostVo> findAll(Long categoryNo, String blogId) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("blogId",blogId);
+		map.put("categoryNo", categoryNo);
+		return sqlSession.selectList("blog.selectPost",map);
 	}
 
 	public void deletePost(String postNo) {

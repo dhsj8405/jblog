@@ -105,8 +105,8 @@ public class BlogService {
 		blogRepository.insertPost(postVo);
 	}
 
-	public List<PostVo> getContents(Long categoryNo) {
-		return blogRepository.findAll(categoryNo);
+	public List<PostVo> getContents(Long categoryNo, String blogId) {
+		return blogRepository.findAll(categoryNo, blogId);
 	}
 
 	public void removePost(String postNo) {

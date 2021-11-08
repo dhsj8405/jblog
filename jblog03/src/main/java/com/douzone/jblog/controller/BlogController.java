@@ -51,10 +51,10 @@ public class BlogController {
 		categoryList = blogService.getCategories(blogId);
 		if(categoryNo.isPresent()) {
 			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
-			postList = blogService.getContents(selectedCategoryNo);
+			postList = blogService.getContents(selectedCategoryNo,blogId);
 		}else {
 			selectedCategoryNo = categoryList.get(0).getNo();
-			postList= blogService.getContents(categoryList.get(0).getNo());
+			postList= blogService.getContents(categoryList.get(0).getNo(),blogId);
 		}
 		
 		if(postNo.isPresent()) {
