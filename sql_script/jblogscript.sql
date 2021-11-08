@@ -135,5 +135,5 @@ where p.category_no ='7'
   and c.blog_id = 'ehdgus8405';
 
 -- 포스트 삭제
-delete from post where no = '15';
+delete from post where no = '1';
 
