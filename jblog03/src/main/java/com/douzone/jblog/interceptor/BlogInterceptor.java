@@ -26,20 +26,22 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);		
 
 		String urlBlogId = (String)pathVariables.get("blogId");
-		BlogVo blog = (BlogVo)servletContext.getAttribute("blogVo");
+		BlogVo blogVo = (BlogVo)servletContext.getAttribute("blogVo");
 
 		
-		if(blog == null) {
-			BlogVo blogVo = blogService.getContents(urlBlogId);	
-			servletContext.setAttribute("blogVo",blogVo);
-			System.out.println("1");
-		}
-		// 블로그 변경시 저장된 blogVo 수정
-
-		if(blog.getId()!=urlBlogId) {		
-			BlogVo blogVo = blogService.getContents(urlBlogId);	
+		if(blogVo == null) {
+			blogVo = blogService.getContents(urlBlogId);	
 			servletContext.setAttribute("blogVo",blogVo);
 			
+		}
+		// 블로그 변경시 저장된 blogVo 수정
+		if(blogVo.getId() != null) {
+			
+			if(blogVo.getId()!=urlBlogId) {		
+				blogVo = blogService.getContents(urlBlogId);	
+				servletContext.setAttribute("blogVo",blogVo);
+				
+			}
 		}
 
 		return true;

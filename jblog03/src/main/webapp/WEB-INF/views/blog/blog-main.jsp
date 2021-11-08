@@ -33,6 +33,7 @@
 						<p>
 					</c:if>
 					<c:if test="${map.post != null}">
+						<h5>${map.post.categoryName }</h5>
 						<h4>${map.post.title }
 							<c:if test="${authUser.id == blogVo.id }">
 								<a href="${pageContext.request.contextPath }/blog/postDelete/${blogVo.id }/${map.post.categoryNo }/${map.post.no }" class="post-del" >삭제</a>

@@ -80,7 +80,7 @@
 	</insert>
 	<select id ="selectPost" parameterType="map" resultType ="postvo">
 		<![CDATA[
-			select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo 
+			select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo ,c.name as categoryName
 			  from post p, category c 
 					where p.category_no = c.no
 				  and p.category_no = #{categoryNo}

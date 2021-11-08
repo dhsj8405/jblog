@@ -131,6 +131,42 @@ public class BlogService {
 		return blogRepository.findCategoryByName(categoryName, blogId);
 	}
 
+	public Map<String, Object> getContents(Map<String, Object> inputMap) {
+		Map<String, Object> outputMap = new HashMap<>();
+		List<PostVo> postList = null;
+		PostVo postVo = null;
+		List<CategoryVo> categoryList = null;
+		Long selectedCategoryNo=null;
+		String blogId = (String) inputMap.get("blogId");
+		Optional categoryNo = (Optional) inputMap.get("categoryNo");
+		Optional postNo = (Optional) inputMap.get("postNo");
+		
+		categoryList = blogRepository.findAllCategory(blogId);
+		if(categoryNo.isPresent()) {
+			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
+			postList = blogRepository.findAll(selectedCategoryNo, blogId);
+
+		}else {
+			selectedCategoryNo = categoryList.get(0).getNo();
+			postList = blogRepository.findAll(categoryList.get(0).getNo(), blogId);
+		}
+		
+		if(postNo.isPresent()) {
+			postVo = getPostFromList(postList,Integer.parseInt((String)postNo.get()));
+		}else {
+			if(!postList.isEmpty()) {
+				postVo =  postList.get(0);
+			}
+		}
+		
+		outputMap.put("selectedCategoryNo",selectedCategoryNo);
+		outputMap.put("categoryList", categoryList);
+		outputMap.put("postList", postList);
+		outputMap.put("post", postVo);
+		
+		return outputMap;
+	}
+
 
 
 }

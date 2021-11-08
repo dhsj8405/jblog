@@ -42,34 +42,21 @@ public class BlogController {
 			@PathVariable("categoryNo") Optional categoryNo,
 			@PathVariable("postNo") Optional postNo,
 			Model model) {
-		Map<String, Object> map = new HashMap<>();
-		List<PostVo> postList = null;
-		PostVo postVo = null;
-		List<CategoryVo> categoryList = null;
-		Long selectedCategoryNo=null;
+
+		Map<String, Object> inputMap = new HashMap<>();
+		Map<String, Object> outputMap = new HashMap<>();
 		
-		categoryList = blogService.getCategories(blogId);
-		if(categoryNo.isPresent()) {
-			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
-			postList = blogService.getContents(selectedCategoryNo,blogId);
-		}else {
-			selectedCategoryNo = categoryList.get(0).getNo();
-			postList= blogService.getContents(categoryList.get(0).getNo(),blogId);
-		}
+		inputMap.put("blogId", blogId);
+		inputMap.put("categoryNo", categoryNo);
+		inputMap.put("postNo",postNo);
 		
-		if(postNo.isPresent()) {
-			postVo = blogService.getPostFromList(postList,Integer.parseInt((String)postNo.get()));
-		}else {
-			if(!postList.isEmpty()) {
-				postVo =  postList.get(0);
-			}
-		}
+
+		outputMap = blogService.getContents(inputMap);
 		
-		map.put("selectedCategoryNo",selectedCategoryNo);
-		map.put("categoryList", categoryList);
-		map.put("postList", postList);
-		map.put("post", postVo);
-		model.addAttribute("map",map);
+		
+		
+		
+		model.addAttribute("map",outputMap);
 		return "blog/blog-main";
 	}
 	@Auth
@@ -87,6 +74,7 @@ public class BlogController {
 			BlogVo blogVo,
 			@PathVariable("blogId") String blogId,
 			@RequestParam(value="logo-file") MultipartFile multipartFile) {
+		
 		blogVo.setId(blogId);
 		blogService.modifyContents(blogVo,multipartFile);
 		servletContext.setAttribute("blogVo", blogVo);
