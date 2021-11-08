@@ -43,6 +43,12 @@ select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
   and blog_id = 'dhsj8405';
 select * from category;  
   
+  			select no,name,`desc` as description ,blog_id as blogId 
+			  from category 
+			 where name = '미분류'
+			   and blog_id =  'dhsj8405';
+  
+  
 -- 카테고리 출력 ( 포스트수 x)
 select c.no,c.name,  c.`desc`, c.blog_id  from category c, post p
 where c.blog_id = 'dhsj8405'
@@ -119,10 +125,14 @@ insert into category values(null, '카테고리2', '본문2','dhsj8405') ;
 
 
 -- 포스트 불러오기
-select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
-where category_no ='5';
 
-select * from post;
+select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
+where category_no ='7';
+
+select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo from post p, category c 
+where p.category_no ='7'
+  and p.category_no = c.no
+  and c.blog_id = 'dhsj8405';
 
 -- 포스트 삭제
 delete from post where no = '15';
