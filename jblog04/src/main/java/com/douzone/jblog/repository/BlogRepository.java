@@ -1,7 +1,8 @@
 package com.douzone.jblog.repository;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +58,28 @@ public class BlogRepository {
 		sqlSession.insert("blog.insertPost",postVo);
 	}
 
-	public List<PostVo> findAll(Long categoryNo) {
-		return sqlSession.selectList("blog.selectPost",categoryNo);
+	public List<PostVo> findAll(Long categoryNo, String blogId) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("blogId",blogId);
+		map.put("categoryNo", categoryNo);
+		return sqlSession.selectList("blog.selectPost",map);
 	}
 
 	public void deletePost(String postNo) {
 		sqlSession.delete("blog.deletePost", postNo);
 	}
+
+
+	public CategoryVo findCategoryByName(String categoryName, String blogId) {
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("blogId",blogId);
+		map.put("categoryName", categoryName);
+
+		return sqlSession.selectOne("blog.selectCategoryByName",map);
+	}
+
+
+
 
 
 }

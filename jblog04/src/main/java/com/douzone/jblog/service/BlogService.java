@@ -105,12 +105,66 @@ public class BlogService {
 		blogRepository.insertPost(postVo);
 	}
 
-	public List<PostVo> getContents(Long categoryNo) {
-		return blogRepository.findAll(categoryNo);
+	public List<PostVo> getContents(Long categoryNo, String blogId) {
+		return blogRepository.findAll(categoryNo, blogId);
 	}
 
 	public void removePost(String postNo) {
 		blogRepository.deletePost(postNo);
+	}
+
+	public PostVo getPostFromList(List<PostVo> postList, int postNo) {
+		PostVo post = null;
+		int index = 0;
+		
+		for(PostVo postVo: postList) {
+			if(postVo.getNo() == postNo) {
+				post = postList.get(index);
+			}
+			index++;
+		}
+		return post;
+	}
+
+
+	public CategoryVo getCategory(String categoryName, String blogId) {
+		return blogRepository.findCategoryByName(categoryName, blogId);
+	}
+
+	public Map<String, Object> getContents(Map<String, Object> inputMap) {
+		Map<String, Object> outputMap = new HashMap<>();
+		List<PostVo> postList = null;
+		PostVo postVo = null;
+		List<CategoryVo> categoryList = null;
+		Long selectedCategoryNo=null;
+		String blogId = (String) inputMap.get("blogId");
+		Optional categoryNo = (Optional) inputMap.get("categoryNo");
+		Optional postNo = (Optional) inputMap.get("postNo");
+		
+		categoryList = blogRepository.findAllCategory(blogId);
+		if(categoryNo.isPresent()) {
+			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
+			postList = blogRepository.findAll(selectedCategoryNo, blogId);
+
+		}else {
+			selectedCategoryNo = categoryList.get(0).getNo();
+			postList = blogRepository.findAll(categoryList.get(0).getNo(), blogId);
+		}
+		
+		if(postNo.isPresent()) {
+			postVo = getPostFromList(postList,Integer.parseInt((String)postNo.get()));
+		}else {
+			if(!postList.isEmpty()) {
+				postVo =  postList.get(0);
+			}
+		}
+		
+		outputMap.put("selectedCategoryNo",selectedCategoryNo);
+		outputMap.put("categoryList", categoryList);
+		outputMap.put("postList", postList);
+		outputMap.put("post", postVo);
+		
+		return outputMap;
 	}
 
 

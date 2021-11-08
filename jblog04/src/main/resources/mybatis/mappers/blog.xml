@@ -78,10 +78,13 @@
 			insert into post values(null, #{title }, #{contents }, now() , #{categoryNo} )
 		]]>	
 	</insert>
-	<select id ="selectPost" parameterType="long" resultType ="postvo">
+	<select id ="selectPost" parameterType="map" resultType ="postvo">
 		<![CDATA[
-			select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
-			where category_no = #{categoryNo }
+			select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo ,c.name as categoryName
+			  from post p, category c 
+					where p.category_no = c.no
+				  and p.category_no = #{categoryNo}
+				  and c.blog_id = #{blogId}
 		]]>	
 	</select>
 	<delete id ="deletePost" parameterType = "String">
@@ -89,7 +92,14 @@
 			delete from post where no = #{postNo};
 		]]>
 	</delete>
-	
+	<select id = "selectCategoryByName" parameterType = "map" resultType = "categoryvo">
+		<![CDATA[
+			select no,name,`desc` as description ,blog_id as blogId 
+			  from category 
+			 where category.name = #{categoryName}
+			   and blog_id = #{blogId}
+		]]>
+	</select>
 	
 </mapper>
 	

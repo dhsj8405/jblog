@@ -1,5 +1,8 @@
 package com.douzone.jblog.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -22,6 +25,8 @@ import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 
 @Controller
 @RequestMapping("/blog")
@@ -36,9 +41,22 @@ public class BlogController {
 			@PathVariable("blogId") String blogId, 
 			@PathVariable("categoryNo") Optional categoryNo,
 			@PathVariable("postNo") Optional postNo,
-			Model model
-			/*@RequestParam(value = "blogId", required = true, defaultValue = "") String id*/) {
+			Model model) {
 
+		Map<String, Object> inputMap = new HashMap<>();
+		Map<String, Object> outputMap = new HashMap<>();
+		
+		inputMap.put("blogId", blogId);
+		inputMap.put("categoryNo", categoryNo);
+		inputMap.put("postNo",postNo);
+		
+
+		outputMap = blogService.getContents(inputMap);
+		
+		
+		
+		
+		model.addAttribute("map",outputMap);
 		return "blog/blog-main";
 	}
 	@Auth
@@ -47,8 +65,7 @@ public class BlogController {
 			@AuthUser UserVo authUser, 
 			Model model,
 			@PathVariable("blogId") String blogId) {
-//		BlogVo blogVo = blogService.getContents(blogId);
-//		model.addAttribute("blogVo",blogVo);
+
 		return "blog/blog-admin-basic";
 	}
 	@Auth
@@ -57,9 +74,10 @@ public class BlogController {
 			BlogVo blogVo,
 			@PathVariable("blogId") String blogId,
 			@RequestParam(value="logo-file") MultipartFile multipartFile) {
-//		blogVo.setId(blogId);
-//		blogService.modifyContents(blogVo,multipartFile);
-//		servletContext.setAttribute("blogVo", blogVo);
+		
+		blogVo.setId(blogId);
+		blogService.modifyContents(blogVo,multipartFile);
+		servletContext.setAttribute("blogVo", blogVo);
 
 		return "redirect:/blog/adminBasic/"+blogId;
 	}
@@ -67,11 +85,10 @@ public class BlogController {
 	@Auth
 	@RequestMapping(value="/adminCategory/{blogId}", method=RequestMethod.GET)
 	public String category(
-			@PathVariable("blogId") String blogId) {
-
-//		List<CategoryVo> categoryList = blogService.getCategories(blogId);
-//		model.addAttribute("categoryList",categoryList);
-//		servletContext.setAttribute("categoryList",categoryList);
+			@PathVariable("blogId") String blogId,
+			Model model) {
+		List<CategoryVo> categoryList = blogService.getCategories(blogId);
+		model.addAttribute("categoryList",categoryList);
 		return "blog/blog-admin-category";
 	}
 	
@@ -82,7 +99,6 @@ public class BlogController {
 			) {
 		
 			blogService.addCategory(categoryVo);
-			
 		return "redirect:/blog/adminCategory/"+categoryVo.getBlogId(); 
 	}
 	
@@ -103,11 +119,10 @@ public class BlogController {
 	public String write(
 			Model model,
 			@PathVariable("blogId") String blogId) {
-//		List<CategoryVo> categoryList = blogService.getCategories(blogId);
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("categoryList", categoryList);
-//		model.addAttribute("map",map);
 		
+		List<CategoryVo> categoryList = blogService.getCategories(blogId);
+		model.addAttribute("categoryList",categoryList);
+
 		
 		return "blog/blog-admin-write";
 	}
@@ -117,8 +132,7 @@ public class BlogController {
 	public String write(
 			@ModelAttribute PostVo postVo,
 			Model model,
-			@PathVariable("blogId") String blogId
-			/*@RequestParam(value = "categoryNo", required = true, defaultValue = "") int categoryNo*/) {
+			@PathVariable("blogId") String blogId) {
 			blogService.addPost(postVo);
 		return "redirect:/blog/adminWrite/" + blogId; 
 	}
@@ -130,7 +144,6 @@ public class BlogController {
 			@PathVariable("categoryNo") String categoryNo,
 			@PathVariable("postNo") String postNo
 			) {
-		System.out.println(postNo);
 			blogService.removePost(postNo);
 		return "redirect:/blog/" + blogId +"/"+ categoryNo; 
 	}
