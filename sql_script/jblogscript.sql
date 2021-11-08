@@ -129,10 +129,10 @@ insert into category values(null, '카테고리2', '본문2','dhsj8405') ;
 select no, title, contents, reg_date as regDateTime, category_no as categoryNo from post 
 where category_no ='7';
 
-select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo from post p, category c 
+select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo, c.name as categoryName from post p, category c 
 where p.category_no ='7'
   and p.category_no = c.no
-  and c.blog_id = 'dhsj8405';
+  and c.blog_id = 'ehdgus8405';
 
 -- 포스트 삭제
 delete from post where no = '15';
