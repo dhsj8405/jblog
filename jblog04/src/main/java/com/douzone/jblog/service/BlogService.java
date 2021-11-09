@@ -23,7 +23,7 @@ import com.douzone.jblog.vo.PostVo;
 public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
-	private static String SAVE_PATH = "/jblog03-upload-images";
+	private static String SAVE_PATH = "/jblog-upload-images";
 	private static String URL_BASE = "/images";
 
 	public void createBlog(String id) {

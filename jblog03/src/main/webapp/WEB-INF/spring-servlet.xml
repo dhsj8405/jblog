@@ -109,7 +109,7 @@
 	
 	<!-- mvc url-resource mapping -->
 	<mvc:resources mapping="/images/**"
-		location="file:/jblog03-upload-images/" />	
+		location="file:/jblog-upload-images/" />	
 
 
 

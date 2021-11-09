@@ -8,7 +8,8 @@
 		<typeAlias type="com.douzone.jblog.vo.PostVo" alias="postvo" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="mybatis/mappers/user.xml" />
-		<mapper resource="mybatis/mappers/blog.xml" />
+		<mapper resource="com/douzone/jblog/config/app/mybatis/mappers/blog.xml" />
+		<mapper resource="com/douzone/jblog/config/app/mybatis/mappers/user.xml" />
+		
 	</mappers>
 </configuration>

@@ -6,8 +6,12 @@
 	<display-name>jblog04</display-name>
 
 	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	</context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
+		<param-value>com.douzone.jblog.config.AppConfig</param-value>
 	</context-param>
 
 	<!-- ContextLoad Listener -->
