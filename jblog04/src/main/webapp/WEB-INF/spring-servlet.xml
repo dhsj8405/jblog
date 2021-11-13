@@ -47,13 +47,14 @@
 	</mvc:annotation-driven>
 
 	<!-- 서블릿 컨테이너(tomcat)의 DefaultServlet 위임(Delegate) Handler -->
-	<mvc:default-servlet-handler />
+	 <mvc:default-servlet-handler />
 	<!-- 1. 요청 URL에 매핑되는 컨트롤러를 검색한다. A. 존재할 경우, 컨트롤러를 이용해서 클라이언트 요청을 처리한다. 2. 
 		디폴트 서블릿 핸들러가 등록되어 있지 않다면, "<mvc:default-servlet-handler />"를 써주지 않았다면 A. 
 		404응답 에러를 전송한다. 3. 디폴트 서블릿 핸들러가 등록되어 있으면, 디폴트 서블릿 핸들러에 요청을 전달한다. A. 디폴트 서블릿 
 		핸들러는 WAS의 디폴트 서블릿에 요청을 전달한다. -->
 	
 	<!-- Interceptors -->
+	 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
@@ -76,18 +77,28 @@
 			<bean class="com.douzone.jblog.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-
+ 	
 	<!-- ViewResolver 설정 -->
-	<bean id="viewResolver"
+	 
+	 <bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass"
 			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-
+ 
 	<!-- 멀티파트 리졸버 -->
-	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 최대업로드 가능한 바이트크기 -->
+		<property name="maxUploadSize" value="52428800" />
+		<!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기 -->
+		<!-- property name="maxInMemorySize" value="52428800" / -->
+		<!-- defaultEncoding -->
+		<property name="defaultEncoding" value="utf-8" />
+
+	</bean>
 	 <!-- Message Source --> 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
