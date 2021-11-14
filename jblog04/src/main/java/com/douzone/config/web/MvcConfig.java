@@ -24,8 +24,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
-	
-
 	// Default Servlet Handler
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -33,6 +31,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	}
 	
 
-	
-		
 }
