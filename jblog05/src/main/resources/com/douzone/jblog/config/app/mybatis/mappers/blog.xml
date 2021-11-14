@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="blog">
+	
+	<insert id="create" parameterType ="string">
+	<![CDATA[
+		insert into blog values('', '', #{id})
+	]]>
+	</insert>
+	
+	<insert id="basicCategory" parameterType ="string">
+	<![CDATA[
+		insert into category values(null,'미분류', '', #{id})
+	]]>
+	</insert>
+	
+	<select id ="selectTitle" parameterType = "string" resultType ="blogvo">
+	<![CDATA[
+		 select title, logo, id 
+		 from blog  
+		 where id = #{id};
+	]]>
+	</select>
+
+	<update id="basicUpdate" parameterType="blogvo">
+		<choose>
+			<when test="logo == null">
+				<![CDATA[
+					update blog 
+					   set title = #{title }
+					 where id = #{id } 
+					  
+				]]>				       
+			</when>
+			<otherwise>
+				<![CDATA[
+					update blog 
+					   set title = #{title }, 
+					       logo = #{logo }       
+					 where id = #{id }
+				]]>
+			</otherwise>
+		</choose>
+	</update>
+	
+	<select id="selectCategories" parameterType="string" resultType="categoryvo">
+		<![CDATA[
+					select c.no as no,
+						   c.name as name,
+						   c.`desc` as description, 
+						   c.blog_id as blogId ,
+						   p.post_count as postCount
+		  			  from category c 
+			  	    	LEFT JOIN (
+			  	     			 select count(*) as post_count ,
+			  	    			        category_no
+			  	    			   from post 
+			  	    		   group by category_no) p
+			  	              	ON p.category_no =c.no
+		   		     where c.blog_id = #{id }
+		]]>		
+	</select>
+	
+	<insert id="insertCategory" parameterType ="categoryvo">
+		<![CDATA[
+			insert into category values(null, #{name} , #{description}, #{blogId } )
+		]]>
+	</insert>
+	
+	<delete id="deleteCategory" parameterType="string" > 
+		<![CDATA[
+			delete from category where no = #{categoryNo } and category.name != '미분류'
+		]]>	
+	</delete>
+	
+	<insert id ="insertPost" parameterType="postvo">
+		<![CDATA[
+			insert into post values(null, #{title }, #{contents }, now() , #{categoryNo} )
+		]]>	
+	</insert>
+	<select id ="selectPost" parameterType="map" resultType ="postvo">
+		<![CDATA[
+			select p.no, p.title, p.contents, p.reg_date as regDateTime, p.category_no as categoryNo ,c.name as categoryName
+			  from post p, category c 
+					where p.category_no = c.no
+				  and p.category_no = #{categoryNo}
+				  and c.blog_id = #{blogId}
+		]]>	
+	</select>
+	<delete id ="deletePost" parameterType = "String">
+		<![CDATA[
+			delete from post where no = #{postNo};
+		]]>
+	</delete>
+	<select id = "selectCategoryByName" parameterType = "map" resultType = "categoryvo">
+		<![CDATA[
+			select no,name,`desc` as description ,blog_id as blogId 
+			  from category 
+			 where category.name = #{categoryName}
+			   and blog_id = #{blogId}
+		]]>
+	</select>
+	
+</mapper>
+	
