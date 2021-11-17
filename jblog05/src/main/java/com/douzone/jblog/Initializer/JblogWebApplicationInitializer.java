@@ -3,16 +3,14 @@ package com.douzone.jblog.Initializer;
 import javax.servlet.Filter;
 import javax.servlet.ServletRegistration.Dynamic;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.douzone.jblog.config.AppConfig;
 import com.douzone.jblog.config.WebConfig;
-@Configuration
-
-@ComponentScan(basePackages="com.douzone.jblog.**")
+//@Configuration
+//
+//@ComponentScan(basePackages="com.douzone.jblog.**")
 public class  JblogWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	@Override

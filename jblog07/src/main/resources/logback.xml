@@ -32,7 +32,7 @@
         <appender-ref ref="fileAppender" />
     </logger>
 	
-	<root level="info">
+	<root level="warn">
 		<appender-ref ref="consoleAppender" />
 	</root>
 

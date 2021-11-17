@@ -8,7 +8,7 @@ public class BootInitializer extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		// TODO Auto-generated method stub
-		return builder.sources(MySiteApplication.class);
+		return builder.sources(JblogApplication.class);
 	}
 
 }
