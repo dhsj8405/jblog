@@ -76,6 +76,7 @@ public class BlogController {
 			@RequestParam(value="logo-file") MultipartFile multipartFile) {
 		
 		blogVo.setId(blogId);
+		System.out.println(blogVo);
 		blogService.modifyContents(blogVo,multipartFile);
 		servletContext.setAttribute("blogVo", blogVo);
 

@@ -23,7 +23,6 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			${blogVo.logo }
 			      			<td><img src="${pageContext.request.contextPath}${blogVo.logo }"></td>      			
 			      		</tr>      		
 			      		<tr>

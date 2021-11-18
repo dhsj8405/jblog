@@ -76,28 +76,19 @@ public class BlogController {
 			@PathVariable("blogId") String blogId,
 			@RequestParam(value="logo-file") MultipartFile multipartFile) {
 		
-//		blogVo.setId(blogId);
-//		System.out.println(blogVo+"----1");
-//		blogService.modifyContents(blogVo,multipartFile);
-//		servletContext.setAttribute("blogVo", blogVo);
-//		System.out.println(blogVo+"----2");
-//		
-		
-		
 		try {
 			String logo = fileUploadService.uploadImage(multipartFile);
 			blogVo.setLogo(logo);
+			
 		} catch(FileUploadException e) {
 			LOGGER.info("Blog Info Update:" + e);
 		}
-		System.out.println(blogVo);
-		System.out.println("----------------------------1");
-		blogService.modifyContents(blogVo);
-		System.out.println(blogVo);
-		System.out.println("----------------------------2");
-		servletContext.setAttribute("blogVo", blogVo);
 		
-		return "redirect:/"+blogId+"/adminBasic/";
+		blogVo.setId(blogId);
+		blogService.modifyContents(blogVo);
+
+		servletContext.setAttribute("blogVo", blogVo);
+		return "redirect:/"+blogId+"/adminBasic";
 	}
 	
 	@Auth
@@ -127,7 +118,7 @@ public class BlogController {
 			@PathVariable("categoryNo") String categoryNo
 			) {
 			blogService.removeCategory(categoryNo);
-		return "redirect:/"+ blogId+"/adminCategory/" ; 
+		return "redirect:/"+ blogId+"/adminCategory" ; 
 	}
 	
 	@Auth 

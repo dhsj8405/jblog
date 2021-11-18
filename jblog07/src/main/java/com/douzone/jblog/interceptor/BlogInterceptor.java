@@ -10,6 +10,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.douzone.jblog.service.BlogService;
 import com.douzone.jblog.vo.BlogVo;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 
 public class BlogInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
@@ -31,15 +33,19 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			pathId = path.substring(path.indexOf("/", 0)+1, path.indexOf("/", 1));
 		}
-
+		
 		BlogVo blogVo = (BlogVo)servletContext.getAttribute("blogVo");
 		// 블로그 변경시 저장된 blogVo 수정
 		if(blogVo == null || !(pathId.equals( blogVo.getId() ) )  ) {
-
 			blogVo = blogService.getContents(pathId);	
-			servletContext.setAttribute("blogVo",blogVo);
-
+		}		
+		
+		// 로고 널값 입력 됐을 때 이전 로고 가져오기  
+		if(!(blogVo.getId().isEmpty()) && blogVo.getLogo() == null) {
+			blogVo = blogService.getContents(pathId);
 		}
+		
+		servletContext.setAttribute("blogVo",blogVo);
 
 		return true;
 
