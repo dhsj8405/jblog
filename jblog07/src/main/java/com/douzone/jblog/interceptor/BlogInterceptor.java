@@ -40,8 +40,10 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 			blogVo = blogService.getContents(pathId);	
 		}		
 		
+		System.out.println("1111111111"+blogVo);
 		// 로고 널값 입력 됐을 때 이전 로고 가져오기  
 		if(!(blogVo.getId().isEmpty()) && blogVo.getLogo() == null) {
+			System.out.println("22222222"+blogVo);
 			blogVo = blogService.getContents(pathId);
 		}
 		

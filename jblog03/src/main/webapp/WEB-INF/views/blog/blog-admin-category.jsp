@@ -24,7 +24,7 @@ $(function(){
 			return;
 		}
 		$.ajax({ 
-			url: "${pageContext.request.contextPath }/blog/api/checkCategory?categoryName="+categoryName,
+			url: "${pageContext.request.contextPath }/category/api/checkCategory?categoryName="+categoryName,
 			type: "get",
 			dataType: "json",
 			error: function(xhr, status, e){
@@ -74,7 +74,7 @@ $(function(){
 						<td>${vo.description}</td>
 						<td>
 							<c:if test="${empty vo.postCount && vo.name != '미분류' }">
-								<a href="${pageContext.request.contextPath }/blog/categoryDelete/${blogVo.id }/${vo.no }" class="del" >삭제</a>
+								<a href="${pageContext.request.contextPath }/${blogVo.id }/categoryDelete/${vo.no }" class="del" >삭제</a>
 							</c:if>
 						</td>
 					</tr>  	
@@ -82,7 +82,7 @@ $(function(){
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			 <form action="${pageContext.request.contextPath}/blog/adminCategory/${blogVo.id }" method="post" > 
+      			 <form action="${pageContext.request.contextPath}/${blogVo.id }/adminCategory" method="post" > 
 			      	<table id="admin-cat-add">
 			      		<tr>
 			      			<td class="t">카테고리명</td>

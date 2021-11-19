@@ -37,7 +37,7 @@ $(function(){
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/blog-navigation.jsp" />
 
-				<form action="${pageContext.request.contextPath}/blog/adminWrite/${blogVo.id }/" method="post">
+				<form action="${pageContext.request.contextPath}/${blogVo.id }/adminWrite/" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>

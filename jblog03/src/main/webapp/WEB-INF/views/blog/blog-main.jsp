@@ -20,7 +20,7 @@
 					</c:if>
 					<c:if test="${ map.postList != null }">
 						<c:forEach items="${map.postList}" var= "postVo">
-							<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${map.selectedCategoryNo }/${postVo.no}">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
+							<li><a href="${pageContext.request.contextPath}/${blogVo.id}/${map.selectedCategoryNo }/${postVo.no}">${postVo.title }</a> <span>${postVo.regDateTime }</span>	</li>
 						</c:forEach>	
 					</c:if>	
 				</ul>
@@ -36,7 +36,7 @@
 						<h5>${map.post.categoryName }</h5>
 						<h4>${map.post.title }
 							<c:if test="${authUser.id == blogVo.id }">
-								<a href="${pageContext.request.contextPath }/blog/postDelete/${blogVo.id }/${map.post.categoryNo }/${map.post.no }" class="post-del" >삭제</a>
+								<a href="${pageContext.request.contextPath }/${blogVo.id }/postDelete/${map.post.categoryNo }/${map.post.no }" class="post-del" >삭제</a>
 							</c:if>
 						</h4>
 						
@@ -62,7 +62,7 @@
 	
 				<c:forEach items="${map.categoryList }"	var="categoryVo" varStatus="status">			
 			
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.id}/${categoryVo.no}">${categoryVo.name}</a></li>
+					<li><a href="${pageContext.request.contextPath}/${blogVo.id}/${categoryVo.no}">${categoryVo.name}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

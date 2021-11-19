@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,50 +19,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.douzone.jblog.exception.FileUploadException;
 import com.douzone.jblog.security.Auth;
 import com.douzone.jblog.security.AuthUser;
 import com.douzone.jblog.service.BlogService;
+import com.douzone.jblog.service.FileUploadService;
 import com.douzone.jblog.vo.BlogVo;
 import com.douzone.jblog.vo.CategoryVo;
 import com.douzone.jblog.vo.PostVo;
 import com.douzone.jblog.vo.UserVo;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 
 @Controller
-@RequestMapping("/blog")
+@RequestMapping("/{blogId:(?!assets|images).*}")
 public class BlogController {
+	private static final Log LOGGER = LogFactory.getLog(BlogController.class);
 	@Autowired
 	private BlogService blogService;
 	@Autowired
 	ServletContext servletContext;
+	@Autowired
+	private FileUploadService fileUploadService;
 	
-	@RequestMapping({"/{blogId}","/{blogId}/{categoryNo}","/{blogId}/{categoryNo}/{postNo}"})
+	@RequestMapping({"","/{categoryNo}","/{categoryNo}/{postNo}"})
 	public String index(	
 			@PathVariable("blogId") String blogId, 
-			@PathVariable("categoryNo") Optional categoryNo,
-			@PathVariable("postNo") Optional postNo,
+			@PathVariable("categoryNo") Optional<Long> categoryNo,
+			@PathVariable("postNo") Optional<Long> postNo,
 			Model model) {
 
 		Map<String, Object> inputMap = new HashMap<>();
 		Map<String, Object> outputMap = new HashMap<>();
-		
+
 		inputMap.put("blogId", blogId);
-		inputMap.put("categoryNo", categoryNo);
+		inputMap.put("categoryNo", categoryNo);	
 		inputMap.put("postNo",postNo);
 		
-
 		outputMap = blogService.getContents(inputMap);
-		
-		
-		
 		
 		model.addAttribute("map",outputMap);
 		return "blog/blog-main";
 	}
 	@Auth
-	@RequestMapping(value="/adminBasic/{blogId}", method=RequestMethod.GET)
+	@RequestMapping(value="/adminBasic", method=RequestMethod.GET)
 	public String basic(
 			@AuthUser UserVo authUser, 
 			Model model,
@@ -69,22 +70,29 @@ public class BlogController {
 		return "blog/blog-admin-basic";
 	}
 	@Auth
-	@RequestMapping(value="/adminBasic/{blogId}", method=RequestMethod.POST)
+	@RequestMapping(value="/adminBasic", method=RequestMethod.POST)
 	public String upload(
 			BlogVo blogVo,
 			@PathVariable("blogId") String blogId,
 			@RequestParam(value="logo-file") MultipartFile multipartFile) {
 		
+		try {
+			String logo = fileUploadService.uploadImage(multipartFile);
+			blogVo.setLogo(logo);
+			
+		} catch(FileUploadException e) {
+			LOGGER.info("Blog Info Update:" + e);
+		}
+		
 		blogVo.setId(blogId);
-		System.out.println(blogVo);
-		blogService.modifyContents(blogVo,multipartFile);
-		servletContext.setAttribute("blogVo", blogVo);
+		blogService.modifyContents(blogVo);
 
-		return "redirect:/blog/adminBasic/"+blogId;
+		servletContext.setAttribute("blogVo", blogVo);
+		return "redirect:/"+blogId+"/adminBasic";
 	}
 	
 	@Auth
-	@RequestMapping(value="/adminCategory/{blogId}", method=RequestMethod.GET)
+	@RequestMapping(value="/adminCategory", method=RequestMethod.GET)
 	public String category(
 			@PathVariable("blogId") String blogId,
 			Model model) {
@@ -94,29 +102,27 @@ public class BlogController {
 	}
 	
 	@Auth
-	@RequestMapping(value="/adminCategory/{blogId}", method=RequestMethod.POST)
+	@RequestMapping(value="/adminCategory", method=RequestMethod.POST)
 	public String category(
 			@ModelAttribute CategoryVo categoryVo
 			) {
 		
 			blogService.addCategory(categoryVo);
-		return "redirect:/blog/adminCategory/"+categoryVo.getBlogId(); 
+		return "redirect:/"+categoryVo.getBlogId()+"/adminCategory/"; 
 	}
 	
-
-	
 	@Auth
-	@RequestMapping(value="/categoryDelete/{blogId}/{categoryNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/categoryDelete/{categoryNo}", method=RequestMethod.GET)
 	public String categoryDelete(
 			@PathVariable("blogId") String blogId,
 			@PathVariable("categoryNo") String categoryNo
 			) {
 			blogService.removeCategory(categoryNo);
-		return "redirect:/blog/adminCategory/" + blogId; 
+		return "redirect:/"+ blogId+"/adminCategory" ; 
 	}
 	
 	@Auth 
-	@RequestMapping(value="/adminWrite/{blogId}", method=RequestMethod.GET)
+	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
 	public String write(
 			Model model,
 			@PathVariable("blogId") String blogId) {
@@ -129,24 +135,24 @@ public class BlogController {
 	}
 	
 	@Auth 
-	@RequestMapping(value="/adminWrite/{blogId}",method=RequestMethod.POST)
+	@RequestMapping(value="/adminWrite",method=RequestMethod.POST)
 	public String write(
 			@ModelAttribute PostVo postVo,
 			Model model,
 			@PathVariable("blogId") String blogId) {
 			blogService.addPost(postVo);
-		return "redirect:/blog/adminWrite/" + blogId; 
+		return "redirect:/"+blogId+"/adminWrite/" ; 
 	}
 	
 	@Auth
-	@RequestMapping(value="/postDelete/{blogId}/{categoryNo}/{postNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/postDelete/{categoryNo}/{postNo}", method=RequestMethod.GET)
 	public String postDelete(
 			@PathVariable("blogId") String blogId,
 			@PathVariable("categoryNo") String categoryNo,
 			@PathVariable("postNo") String postNo
 			) {
 			blogService.removePost(postNo);
-		return "redirect:/blog/" + blogId +"/"+ categoryNo; 
+		return "redirect:/" + blogId +"/"+ categoryNo; 
 	}
 
 	

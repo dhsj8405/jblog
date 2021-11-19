@@ -17,7 +17,7 @@ import com.douzone.jblog.vo.UserVo;
 
 
 @RestController("blogApiController") //핸들러들 전부 responsebody 가진것처럼 메세지 컨버터 작용 : Auth와 비슷
-@RequestMapping("blog/api")
+@RequestMapping("category/api")
 public class BlogController {
 	@Autowired
 	private BlogService blogService;
@@ -30,7 +30,6 @@ public class BlogController {
 		
 			BlogVo blogVo = (BlogVo)servletContext.getAttribute("blogVo");
 			CategoryVo categoryVo = blogService.getCategory(categoryName,blogVo.getId());
-			System.out.println(categoryVo);
 			
 			return JsonResult.success(categoryVo != null);
 
