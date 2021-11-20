@@ -1,0 +1,11 @@
+<%
+	if(data.postCount == null){
+		data.postCount = '';
+		}
+%>
+	<tr value='<%=data.no%>'>
+		<td><%=data.name%></td>
+		<td><%=data.postCount%></td>
+		<td><%=data.description%></td>
+		<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg" value="<%=data.no%>" class="delete-img"></td>
+	</tr>

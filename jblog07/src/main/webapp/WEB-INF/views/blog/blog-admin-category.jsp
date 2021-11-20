@@ -22,13 +22,17 @@
 var listTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list-template.ejs"
 });
-
+var listItemTemplate = new EJS({
+	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
+});
 
 
  function removeTable(){
   // 원래 테이블 제거
   $(".admin-cat-body").remove();
   
+  $("#name-cat-form").val("");
+  $("#description-cat-form").val("");
 };
 
 
@@ -76,8 +80,7 @@ $(function(){
 				}
 
 				var html = listTemplate.render(response);
-				console.log(html);
-				$(".admin-cat").append(html);
+				$(".admin-cat-body").append(html);
 
 			},
 			error: function(xhr, status, e){
@@ -101,8 +104,11 @@ $(function(){
 	   	data: JSON.stringify(vo),
 
 	    success: function( response ){
-	    	removeTable();
-			fetchList();
+	    	console.log(response);
+	    	var html = listItemTemplate.render(response);
+	    	$(".admin-cat-body").append(html);
+	    	$("#name-cat-form").val("");
+	    	$("#description-cat-form").val("");
 	    },
 	    error: function( err ){
 	      console.log(err)
@@ -113,21 +119,6 @@ $(function(){
 	
 	// 삭제 다이알로 객체 만들기
 
-/* 	 $("#dialog-delete-form").dialog({
-		 autoOpen:false,
-		 position:[100,200],
-		 modal:true,
-		 buttons:{
-			 "확인":function(){
-					$(this).dialog('close');
-
-			 },
-			 "취소":function(){
-					$(this).dialog('close');
-
-			 }
-		 }
-	 }); */
 	 var dialogDelete = $("#dialog-delete-form").dialog({
 		 	autoOpen: false,
 		width: 300,
@@ -135,18 +126,17 @@ $(function(){
 		modal: true,
 		buttons: {
 			"삭제": function(){
-
 				var categoryNo = $("#hidden-no").val();
 				$.ajax({
 				    url : "${pageContext.request.contextPath }/category/api/deleteCategory?categoryNo="+ categoryNo,
 			 	    type: "POST",
 				    data: {},
 				    dataType: "json",
-				    success: function( result ){
-				      if( result ){
-				    	  
-				    	removeTable();
-					    fetchList();
+				    success: function( response ){
+				      if( response ){
+				    	 console.log(response.data);
+						$(".admin-cat-body tr[value=" + response.data + "]").remove();
+
 						dialogDelete.dialog('close');
 
 				     	}
@@ -193,13 +183,12 @@ $(function(){
 				<c:import url="/WEB-INF/views/includes/blog-navigation.jsp" />
 				<table class="admin-cat">
 					<tr>
-						<th>번호</th>
 						<th>카테고리명</th>
 						<th>포스트 수</th>
 						<th>설명</th>
 						<th>삭제</th>
 					</tr>
-
+					<tbody class="admin-cat-body"></tbody> 
 				<%-- 	<tbody class="admin-cat-body">
 						<c:forEach items="${categoryList }" var="vo" varStatus="status">
 							<tr>
@@ -234,8 +223,10 @@ $(function(){
 				</table>
 
 				<div id="dialog-delete-form" class="delete-form" title="카테고리 삭제" style="display: none">
-					<p class="validateTips normal">정말 삭제하시겠습니까?</p>
-					<p class="validateTips error" style="display: none;">카테고리가 비어있지 않습니다.</p>
+					<p class="info-normal">정말 삭제하시겠습니까?</p>
+					<p class="info-cat-empty" style="display: none;">카테고리가 비어있지 않습니다.</p>
+					<p class="info-cat-unclassified" style="display: none;">카테고리가 비어있지 않습니다.</p>
+					
 					<form>
 					<input type="hidden" id = "hidden-no" value = "">
 					<input type="hidden" id = "hidden-imgObj" value = "">

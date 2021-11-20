@@ -71,9 +71,10 @@ public class BlogController {
 			){
 		
 		boolean result = blogService.addCategory(vo);
-		List<CategoryVo> categoryList = blogService.getCategories(vo.getBlogId());
-		System.out.println(categoryList);
-		return JsonResult.success(result ? categoryList : -1);
+		System.out.println(vo);
+//		List<CategoryVo> categoryList = blogService.getCategories(vo.getBlogId());
+//		System.out.println(categoryList);
+		return JsonResult.success(result ? vo : -1);
 
 	}
 	

@@ -65,6 +65,11 @@
 		<![CDATA[
 			insert into category values(null, #{name} , #{description}, #{blogId } )
 		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
 	</insert>
 	
 	<delete id="deleteCategory" parameterType="string" > 
