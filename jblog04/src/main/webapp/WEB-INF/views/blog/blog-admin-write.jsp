@@ -37,7 +37,7 @@ $(function(){
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/blog-navigation.jsp" />
 
-				<form action="${pageContext.request.contextPath}/blog/adminWrite/${blogVo.id }/" method="post">
+				<form action="${pageContext.request.contextPath}/${blogVo.id }/adminWrite/" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
@@ -65,11 +65,8 @@ $(function(){
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
+
 	</div>
 </body>
 </html>

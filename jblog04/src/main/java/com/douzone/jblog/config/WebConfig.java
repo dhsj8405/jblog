@@ -28,8 +28,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(blogInterceptor()).addPathPatterns("/blog/**").excludePathPatterns("/blog/api/**");
-
+		registry.addInterceptor(blogInterceptor())
+									.addPathPatterns("/**")
+									.excludePathPatterns("/assets/**")
+									.excludePathPatterns("/user/**")
+									.excludePathPatterns("/category/**")
+									.excludePathPatterns("/images/**");
 	}
 
 }

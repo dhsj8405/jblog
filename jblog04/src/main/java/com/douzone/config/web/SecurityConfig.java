@@ -31,13 +31,10 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 	// Interceptors
 	@Bean
 	public HandlerInterceptor loginInterceptor() {
-		System.out.println("2");
-
 		return new LoginInterceptor();
 	}
 	@Bean
 	public HandlerInterceptor logoutInterceptor() {
-		System.out.println("4");
 		return new LogoutInterceptor();
 	}
 	
@@ -49,7 +46,6 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		System.out.println("0");
 		registry
 			.addInterceptor(loginInterceptor())
 			.addPathPatterns("/user/auth");
@@ -61,9 +57,7 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
 
 		registry
 			.addInterceptor(authInterceptor())
-			.addPathPatterns("/**")
-			.excludePathPatterns("/user/auth")
-			.excludePathPatterns("/user/logout")
-			.excludePathPatterns("/assets/**");
+			.addPathPatterns("/**/admin**/**");
+			
 	}
 }
