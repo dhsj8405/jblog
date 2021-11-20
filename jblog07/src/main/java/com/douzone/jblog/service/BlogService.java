@@ -54,13 +54,11 @@ public class BlogService {
 		return blogRepository.findAllCategory(id);
 	}
 
-	public void addCategory(CategoryVo categoryVo) {
-			blogRepository.insertCategory(categoryVo);		
+	public boolean addCategory(CategoryVo categoryVo) {
+		return blogRepository.insertCategory(categoryVo);		
 	}
 
-	public void removeCategory(String categoryNo) {
-		blogRepository.deleteCategory(categoryNo);
-	}
+	
 
 	public void addPost(PostVo postVo) {
 		blogRepository.insertPost(postVo);
@@ -135,5 +133,9 @@ public class BlogService {
 		return post;
 	}
 
+	public boolean deleteCategory(String categoryNo) {
+		
+		return blogRepository.deleteCategory(categoryNo);
+	}
 
 }
