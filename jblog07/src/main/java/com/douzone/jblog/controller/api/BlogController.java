@@ -38,6 +38,14 @@ public class BlogController {
 //		return JsonResult.success(categoryList);
 //	}
 	
+	@GetMapping("/list")
+	public JsonResult list() {
+		BlogVo blogVo = (BlogVo)servletContext.getAttribute("blogVo");
+		List<CategoryVo> categoryList = blogService.getCategories(blogVo.getId());
+		return JsonResult.success(categoryList);
+
+	}
+	
 	@GetMapping("/checkCategory")
 	public JsonResult checkCategory(
 			@RequestParam(value="categoryName", required = true, defaultValue ="") String categoryName) {
@@ -59,8 +67,8 @@ public class BlogController {
 	
 	@PostMapping("/addCategory")
 	public JsonResult addCategory (
-			@RequestBody CategoryVo vo,
-			@AuthUser UserVo authUser){
+			@RequestBody CategoryVo vo
+			){
 		
 		boolean result = blogService.addCategory(vo);
 		List<CategoryVo> categoryList = blogService.getCategories(vo.getBlogId());

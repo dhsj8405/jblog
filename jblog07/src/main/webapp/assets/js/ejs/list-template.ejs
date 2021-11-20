@@ -1,0 +1,19 @@
+<tbody class="admin-cat-body">
+<%
+	  for(i=0 ; i < data.length; i ++){
+	 	var vo = data[i];
+	  	if(vo.postCount == null){
+		  	vo.postCount = '';
+	  	}
+%>
+		<tr>
+			<td><%=i%></td>
+			<td><%=vo.name%></td>
+			<td><%=vo.postCount%></td>
+			<td><%=vo.description%></td>
+			<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg" value="<%=vo.no%>" class="delete-img"></td>
+		</tr>
+<%
+	}
+%>
+</tbody>
