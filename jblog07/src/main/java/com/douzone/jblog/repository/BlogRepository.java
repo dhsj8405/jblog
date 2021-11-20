@@ -51,6 +51,7 @@ public class BlogRepository {
 
 	public boolean deleteCategory(String categoryNo) throws BlogRepositoryException{
 		int count = sqlSession.delete("blog.deleteCategory",categoryNo);
+		System.out.println(count);
 		return count == 1;
 	}
 

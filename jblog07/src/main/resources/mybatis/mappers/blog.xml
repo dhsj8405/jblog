@@ -74,7 +74,7 @@
 	
 	<delete id="deleteCategory" parameterType="string" > 
 		<![CDATA[
-			delete from category where no = #{categoryNo } and category.name != '미분류'
+			delete from	 category where no = #{categoryNo } and category.name != '미분류'
 		]]>	
 	</delete>
 	

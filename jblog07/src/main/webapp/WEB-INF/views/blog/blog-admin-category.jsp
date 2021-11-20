@@ -120,39 +120,48 @@ $(function(){
 	// 삭제 다이알로 객체 만들기
 
 	 var dialogDelete = $("#dialog-delete-form").dialog({
-		 	autoOpen: false,
+		autoOpen: false,
 		width: 300,
 		height: 200,
 		modal: true,
 		buttons: {
 			"삭제": function(){
-				var categoryNo = $("#hidden-no").val();
-				$.ajax({
-				    url : "${pageContext.request.contextPath }/category/api/deleteCategory?categoryNo="+ categoryNo,
-			 	    type: "POST",
-				    data: {},
-				    dataType: "json",
-				    success: function( response ){
-				      if( response ){
-				    	 console.log(response.data);
-						$(".admin-cat-body tr[value=" + response.data + "]").remove();
-
-						dialogDelete.dialog('close');
-
-				     	}
-				    },
-				    error: function( err ){
-				      console.log(err)
-				    }
-				})
+				var categoryNo = $("#hidden-categoryNo").val();
+				var postCount = $("#hidden-postCount").val();
+				if(postCount != ''){
+					$(".info-cat-empty").show();
+				}
+				else{
+					$.ajax({
+					    url : "${pageContext.request.contextPath }/category/api/deleteCategory?categoryNo="+ categoryNo,
+				 	    type: "POST",
+					    data: {},
+					    dataType: "json",
+					    success: function( response ){
+					      if( response ){
+					    	 console.log(response.data);
+							$(".admin-cat-body tr[value=" + response.data + "]").remove();
+	
+							dialogDelete.dialog('close');
+	
+					     	}
+					    },
+					    error: function( err ){
+					      console.log(err)
+					    }
+					})
+				}
 			},
 			"취소": function(){
 				$(this).dialog('close');
+				$(".info-cat-empty").hide();
+
 			}
 		},
 		close: function(){
 			$("#hidden-no").val("");
-			
+			$(".info-cat-empty").hide();
+
 		}
 		
 	});
@@ -160,13 +169,16 @@ $(function(){
 	//카테고리 삭제 모달창 불러오기
 	$(document).on("click", ".delete-img", function(event){
 		event.preventDefault();
-		console.log(" 클릭");
-		  let categoryNo = $(this).attr("value")
-		  let imgObj = $(this);
-		  $("#hidden-no").val(categoryNo);
-	      dialogDelete.dialog("open");
-	      //$("#dialog-delete-form").dialog("open");
-		console.log("finish")
+
+		let categoryNo = $(this).attr("value1");
+		let postCount = $(this).attr("value2");
+
+
+		  $("#hidden-categoryNo").val(categoryNo);
+		  $("#hidden-postCount").val(postCount);
+	      dialogDelete.dialog("open"); 
+	      $("#dialog-delete-form").dialog("open");
+
 		});
 	
 	fetchList();
@@ -224,12 +236,11 @@ $(function(){
 
 				<div id="dialog-delete-form" class="delete-form" title="카테고리 삭제" style="display: none">
 					<p class="info-normal">정말 삭제하시겠습니까?</p>
-					<p class="info-cat-empty" style="display: none;">카테고리가 비어있지 않습니다.</p>
-					<p class="info-cat-unclassified" style="display: none;">카테고리가 비어있지 않습니다.</p>
+					<p class="info-cat-empty" style="display: none; color:red;">카테고리가 비어있지 않습니다.</p>
 					
 					<form>
-					<input type="hidden" id = "hidden-no" value = "">
-					<input type="hidden" id = "hidden-imgObj" value = "">
+					<input type="hidden" id = "hidden-categoryNo" value = "">
+					<input type="hidden" id = "hidden-postCount" value = "">
 					
 					</form>
 				</div>
