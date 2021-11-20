@@ -27,39 +27,6 @@ var listItemTemplate = new EJS({
 });
 
 
- function removeTable(){
-  // 원래 테이블 제거
-  $(".admin-cat-body").remove();
-  
-  $("#name-cat-form").val("");
-  $("#description-cat-form").val("");
-};
-
-
-/* function createNewTable(categoryList){
-  $newTbody = $("<tbody class='new-cat-body'></tbody>")
-  $(".admin-cat").append($newTbody);
-  for(i=0 ; i < categoryList.length; i ++){
-	  var vo = categoryList[i];
-	  if(vo.postCount == null){
-		  vo.postCount = '';
-	  }
-  	  let $cellsOfRow = $(
-    	"<tr>" +
-	        "<td>" + i + "</td>" +
-	        "<td>" + vo.name + "</td>" +
-	        "<td>" + vo.postCount + "</td>" +
-	        "<td>" + vo.description + "</td>" +
-	        "<td>" +
-			        "<img src='${pageContext.request.contextPath}/assets/images/delete.jpg'" +
-			        "class='delete-img' value='"+ vo.no + "'>" +
-	        "</td>" +
-        "</tr>");
-    $newTbody.append($cellsOfRow);
-  }
-};
- */
-
 $(function(){
 	// 카테고리 리스트 
 	var fetchList = function(){
@@ -130,12 +97,12 @@ $(function(){
 	  	})
 	}); 
 	
-	// 카테고리 중복 도는 공백입력후 수정시 알림 삭제
+	// 알림 삭제 : 카테고리 중복 도는 공백입력후 수정시 
  	$('#name-cat-form').change(function(){
 		$('#checkCategory').html( ' ' );
 	})
 	
-	//카테고리 중복 및 공백 제목 방지 다이알로그 객체  : 카테고리추가
+	//카테고리 (중복 및 공백) 제목 방지 다이알로그 객체 + 카테고리추가
  	var dialogInsert = $("#dialog-insert-form").dialog({
 				autoOpen: false,
 				width: 300,
@@ -149,8 +116,8 @@ $(function(){
 				close: function(){
 				}
 			});
-	// 삭제 다이알로 객체 만들기
-
+	
+	// 삭제 다이알로 객체 만들기 + 카테고리 삭제
 	 var dialogDelete = $("#dialog-delete-form").dialog({
 		autoOpen: false,
 		width: 300,
@@ -211,22 +178,7 @@ $(function(){
 	      dialogDelete.dialog("open"); 
 
 		});
-	//카테고리 추가 모달창 불러오기
-	/* $(document).on("click", ".form-btn", function(){
-		event.preventDefault();
-
-		let categoryName = $("#name-cat-form").val();
-		let categoryDescription = $("#description-cat-form").val();
-		let blogId = $("#blogId").val();
-		
-		
-		  $("#hidden-categoryName").val(categoryNo);
-		  $("#hidden-categoryDescription").val(postCount);
-		  $("#hidden-blogId").val(categoryNo);
-		  
-	      dialogCheck.dialog("open"); 
-
-		}); */
+	
 		
 	fetchList();
 });
@@ -297,34 +249,6 @@ $(function(){
 					<p class="info-normal">카테고리가 추가 되었습니다.</p>
 				</div>
 
-				<%-- <h4 class="n-c">새로운 카테고리 추가</h4>
-      			 <form action="${pageContext.request.contextPath}/${blogVo.id }/adminCategory" method="post" > 
-			      	<table id="admin-cat-add">
-			      		<tr>
-			      			<td class="t">카테고리명</td>
-			      			<td><input id="categoryName" type="text" name="name">
-			      				<div id = "checkCategory"></div>
-			      			</td>
-			      			
-			      		</tr>
-			      		<tr>
-			      			<td class="t">설명</td>
-			      			<td><input type="text" name="description"></td>
-			      		</tr>
-			      		<tr>
-			      			<td class="s">&nbsp;</td>
-			      			<!-- <td><input id ="disabled-btn-check-category" type="submit" value="카테고리 추가"></td>-->
-			      			<td>
-				      			<input id ="disabled-btn-check-category" type="submit" disabled value="카테고리 추가">
-			      				<input id ="enabled-btn-check-category" type="submit" value="카테고리 추가" style= 'display: none'>
-			      			
-			      			</td>
-			      			
-			      			
-			      		</tr>
-			      		      		      		
-			      	</table> 
-			       </form> --%>
 			</div>
 		</div>
 		<div id="footer">
