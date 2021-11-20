@@ -10,6 +10,7 @@ delete from category where blog_id = 'doolly@gmai.com';
 select * from user;
 select * from blog;
 select * from category;
+
 select * from post;
 
 select c.no, c.name, c.blog_Id, c.`desc` 
@@ -56,8 +57,15 @@ and  c.no = p.category_no;
 
 -- 카테고리 추가
 select * from category;
-insert into category values(null, 'inserttest01' , 'inserttest01', 'dhsj8405' );
-
+insert into category values(null, 'inserttest01' , 'inserttest01', 'dhsj8405' ) ;
+insert into category (no, name, `desc` ,blog_id) 
+	 select null, '' , 'inserttest03', 'dhsj8405' 
+             from dual 
+				  where not exists (select no, name, `desc`, blog_id  
+                                      from category 
+									where name = 'douzone 출석부');
+-- insert into category values(null, #{name} , #{description}, #{blogId } )
+select * from category where name = 'douzone 출석부';
 
 
 select * from post;
@@ -71,6 +79,8 @@ select c.no, c.name, c.`desc`, c.blog_id ,p.post_count
 -- 카테고리 삭제 (포스트없이)
 delete from post where category_no = '4';
 delete from category where no = '27' and category.name != '미분류';
+-- blog.xml
+-- delete from	 category where no = #{categoryNo } and category.name != '미분류'
 select * from category;
 
 
@@ -137,3 +147,26 @@ where p.category_no ='7'
 -- 포스트 삭제
 delete from post where no = '1';
 
+select * from category;
+select * from category
+where no = '27';
+-- 아작스 카테고리 삭제 
+delete from category
+where no = '27'
+and 
+(select * from(select p.post_count
+  from category c LEFT JOIN
+  (select count(*) as post_count, category_no from post
+  group by category_no) p ON  
+  p.category_no =c.no
+  where c.no ='27'
+  and p.post_count is null) a) is null;
+  
+
+(select * from(select p.post_count
+  from category c LEFT JOIN
+  (select count(*) as post_count, category_no from post
+  group by category_no) p ON  
+  p.category_no =c.no
+  where c.no ='67'
+  and p.post_count is null) a);

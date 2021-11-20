@@ -69,12 +69,22 @@ public class BlogController {
 	public JsonResult addCategory (
 			@RequestBody CategoryVo vo
 			){
+		boolean jResult = false ;
 		
-		boolean result = blogService.addCategory(vo);
+		// 카테고리 이름 중복될 때
+		int checkNum = -1 ;
+		
+		if(vo.getName().trim().isEmpty()) {
+			// 카테고리 이름 공백일 때
+			checkNum = -2;
+		}else {
+			jResult = blogService.addCategory(vo);	
+		}
+		
 		System.out.println(vo);
 //		List<CategoryVo> categoryList = blogService.getCategories(vo.getBlogId());
 //		System.out.println(categoryList);
-		return JsonResult.success(result ? vo : -1);
+		return JsonResult.success(jResult ? vo : checkNum);
 
 	}
 	

@@ -63,7 +63,14 @@
 	
 	<insert id="insertCategory" parameterType ="categoryvo">
 		<![CDATA[
-			insert into category values(null, #{name} , #{description}, #{blogId } )
+			
+			insert into category (no, name, `desc` ,blog_id) 
+	 			                  select null, #{name} , #{description}, #{blogId} 
+             					    from dual 
+				  		           where not exists (select no, name, `desc`, blog_id  
+                           		            		   from category 
+										              where name = #{name});
+			
 		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
