@@ -109,16 +109,7 @@ div#content .admin-menu a				{ font-weight:bold }
 div#content .admin-config,
 div#content .admin-cat-add,
 div#content .admin-cat					{ border:none; width:720px; margin-top:30px }
-div#content .admin-cat .del				{background: url("/jblog07/assets/images/delete.jpg") no-repeat 0 0;
-										 display:block;
-										 width:20px;
-										 height:20px;
-										 font-size:0; }
-div#content .admin-cat-body .delete-img	{background: url("/jblog07/assets/images/delete.jpg") no-repeat 0 0;
-										 display:block;
-										 width:20px;
-										 height:20px;
-										 font-size:0; }
+div#content .admin-cat-body .delete-img	{ cursor:pointer; }
 
 
 .admin-config td.t						{ padding:5px 0; width:75px }

@@ -26,6 +26,7 @@ var listItemTemplate = new EJS({
 	url: "${pageContext.request.contextPath }/assets/js/ejs/list-item-template.ejs"
 });
 
+var path = "${pageContext.request.contextPath }"; 
 
 $(function(){
 	// 카테고리 리스트 
@@ -46,7 +47,7 @@ $(function(){
 					return;
 				}
 
-				var html = listTemplate.render(response);
+				var html = listTemplate.render(response,path);
 				$(".admin-cat-body").append(html);
 
 			},
@@ -81,7 +82,7 @@ $(function(){
 		    		return;
 		    	}
 		    	else{
-		    		var html = listItemTemplate.render(response);
+		    		var html = listItemTemplate.render(response,path);
 			    	$(".admin-cat-body").append(html);
 			    	$("#name-cat-form").val("");
 			    	$("#description-cat-form").val("");
