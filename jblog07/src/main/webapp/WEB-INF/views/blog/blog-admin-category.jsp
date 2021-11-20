@@ -39,8 +39,6 @@ $(function(){
 			dataType: 'json',
 			data: '',
 			success: function(response){
-				console.log(response);
-				console.log("success");
 		 	
 				if(response.result != "success"){
 					console.error(response.message);
@@ -139,7 +137,6 @@ $(function(){
 					    dataType: "json",
 					    success: function( response ){
 					      if( response ){
-					    	 console.log(response.data);
 							$(".admin-cat-body tr[value=" + response.data + "]").remove();
 	
 							dialogDelete.dialog('close');
@@ -252,11 +249,8 @@ $(function(){
 
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
+
 	</div>
 </body>
 </html>

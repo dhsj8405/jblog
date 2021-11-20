@@ -111,15 +111,15 @@ public class BlogController {
 		return "redirect:/"+categoryVo.getBlogId()+"/adminCategory/"; 
 	}
 	
-	@Auth
-	@RequestMapping(value="/categoryDelete/{categoryNo}", method=RequestMethod.GET)
-	public String categoryDelete(
-			@PathVariable("blogId") String blogId,
-			@PathVariable("categoryNo") String categoryNo
-			) {
-			blogService.removeCategory(categoryNo);
-		return "redirect:/"+ blogId+"/adminCategory" ; 
-	}
+//	@Auth
+//	@RequestMapping(value="/categoryDelete/{categoryNo}", method=RequestMethod.GET)
+//	public String categoryDelete(
+//			@PathVariable("blogId") String blogId,
+//			@PathVariable("categoryNo") String categoryNo
+//			) {
+//			blogService.removeCategory(categoryNo);
+//		return "redirect:/"+ blogId+"/adminCategory" ; 
+//	}
 	
 	@Auth 
 	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
