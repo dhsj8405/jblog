@@ -24,7 +24,6 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public String login() {
-	System.out.println("usercontroller login 뷰 선택");
 		return "user/login";
 	}
 	
@@ -59,7 +58,6 @@ public class UserController {
 	public String joinsuccess() {
 		return "user/joinsuccess";
 	}
-	
 	@RequestMapping(value ="/auth",method=RequestMethod.POST)
 	public void auth() {
 	}
@@ -67,5 +65,4 @@ public class UserController {
 	@RequestMapping(value ="/logout",method=RequestMethod.GET)
 	public void logout() {
 	} 
-	
 }

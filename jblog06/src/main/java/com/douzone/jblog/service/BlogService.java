@@ -1,10 +1,5 @@
 package com.douzone.jblog.service;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +7,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.douzone.jblog.repository.BlogRepository;
 import com.douzone.jblog.vo.BlogVo;
@@ -40,44 +34,11 @@ public class BlogService {
 		return blogRepository.findTitle(id);
 	}
 
-	public void modifyContents(BlogVo blogVo, MultipartFile multipartFile) {
-		String url = null;
-		try {
-			if (multipartFile.getOriginalFilename().isEmpty()) {
-				blogVo.setLogo(null);
-			} else {
-				String originFilename = multipartFile.getOriginalFilename();
-				String extName = originFilename.substring(originFilename.lastIndexOf('.') + 1);
-				String saveFilename = generateSaveFilename(extName);
-
-				byte[] data = multipartFile.getBytes();
-				OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
-				os.write(data);
-				os.close();
-
-				url = URL_BASE + "/" + saveFilename;
-				blogVo.setLogo(url);
-
-			}
-		} catch (IOException ex) {
-			throw new RuntimeException("file upload error:" + ex);
-		}
+	public void modifyContents(BlogVo blogVo) {
 		blogRepository.basic_update(blogVo);
 	}
 
-	private String generateSaveFilename(String extName) {
-		String filename = "";
-		Calendar calendar = Calendar.getInstance();
-		filename += calendar.get(Calendar.YEAR);
-		filename += calendar.get(Calendar.MONTH);
-		filename += calendar.get(Calendar.DATE);
-		filename += calendar.get(Calendar.HOUR);
-		filename += calendar.get(Calendar.MINUTE);
-		filename += calendar.get(Calendar.SECOND);
-		filename += calendar.get(Calendar.MILLISECOND);
-		filename += ("." + extName);
-		return filename;
-	}
+	
 
 //	public Map<String, Object>  getCategories(String id) {
 //		Map<String, Object> map = new HashMap<String, Object>();
@@ -93,13 +54,11 @@ public class BlogService {
 		return blogRepository.findAllCategory(id);
 	}
 
-	public void addCategory(CategoryVo categoryVo) {
-			blogRepository.insertCategory(categoryVo);		
+	public boolean addCategory(CategoryVo categoryVo) {
+		return blogRepository.insertCategory(categoryVo);		
 	}
 
-	public void removeCategory(String categoryNo) {
-		blogRepository.deleteCategory(categoryNo);
-	}
+	
 
 	public void addPost(PostVo postVo) {
 		blogRepository.insertPost(postVo);
@@ -113,46 +72,40 @@ public class BlogService {
 		blogRepository.deletePost(postNo);
 	}
 
-	public PostVo getPostFromList(List<PostVo> postList, int postNo) {
-		PostVo post = null;
-		int index = 0;
-		
-		for(PostVo postVo: postList) {
-			if(postVo.getNo() == postNo) {
-				post = postList.get(index);
-			}
-			index++;
-		}
-		return post;
-	}
-
+	
 
 	public CategoryVo getCategory(String categoryName, String blogId) {
 		return blogRepository.findCategoryByName(categoryName, blogId);
 	}
 
 	public Map<String, Object> getContents(Map<String, Object> inputMap) {
+		// init
 		Map<String, Object> outputMap = new HashMap<>();
 		List<PostVo> postList = null;
 		PostVo postVo = null;
 		List<CategoryVo> categoryList = null;
 		Long selectedCategoryNo=null;
-		String blogId = (String) inputMap.get("blogId");
-		Optional categoryNo = (Optional) inputMap.get("categoryNo");
-		Optional postNo = (Optional) inputMap.get("postNo");
 		
+		// 입력값
+		String blogId = (String) inputMap.get("blogId");
+		Optional<Long> categoryNo = (Optional) inputMap.get("categoryNo");
+		Optional<Long> postNo = (Optional) inputMap.get("postNo");
+		
+		//카테고리 리스트
 		categoryList = blogRepository.findAllCategory(blogId);
+		
+		//카테고리 번호에 해당하는 포스트 리스트
 		if(categoryNo.isPresent()) {
-			selectedCategoryNo = Long.parseLong((String)categoryNo.get());
+			selectedCategoryNo = (Long) categoryNo.get();
 			postList = blogRepository.findAll(selectedCategoryNo, blogId);
-
 		}else {
 			selectedCategoryNo = categoryList.get(0).getNo();
 			postList = blogRepository.findAll(categoryList.get(0).getNo(), blogId);
 		}
 		
+		//포스트 번호에 해당하는 포스트 내용
 		if(postNo.isPresent()) {
-			postVo = getPostFromList(postList,Integer.parseInt((String)postNo.get()));
+			postVo = getPostFromList(postList,(Long)postNo.get());
 		}else {
 			if(!postList.isEmpty()) {
 				postVo =  postList.get(0);
@@ -167,6 +120,22 @@ public class BlogService {
 		return outputMap;
 	}
 
+	public PostVo getPostFromList(List<PostVo> postList, Long postNo) {
+		PostVo post = null;
+		int index = 0;
+		
+		for(PostVo postVo: postList) {
+			if(postVo.getNo() == postNo) {
+				post = postList.get(index);
+			}
+			index++;
+		}
+		return post;
+	}
 
+	public boolean deleteCategory(String categoryNo) {
+		
+		return blogRepository.deleteCategory(categoryNo);
+	}
 
 }

@@ -15,7 +15,7 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/blog-navigation.jsp" />
-				<form action="${pageContext.request.contextPath}/blog/adminBasic/${blogVo.id }" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/${blogVo.id }/adminBasic" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -37,11 +37,8 @@
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
+
 	</div>
 </body>
 </html>

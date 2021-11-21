@@ -75,9 +75,15 @@ public class WebConfig implements WebMvcConfigurer {
 
 		registry.addInterceptor(logoutInterceptor()).addPathPatterns("/user/logout");
 
-		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/user/auth")
-				.excludePathPatterns("/user/logout").excludePathPatterns("/assets/**");
-		registry.addInterceptor(blogInterceptor()).addPathPatterns("/blog/**").excludePathPatterns("/blog/api/**");
+		registry.addInterceptor(authInterceptor())
+									.addPathPatterns("/**/admin**/**");
+
+		registry.addInterceptor(blogInterceptor())
+									.addPathPatterns("/**")
+									.excludePathPatterns("/assets/**")
+									.excludePathPatterns("/user/**")
+									.excludePathPatterns("/category/**")
+									.excludePathPatterns("/images/**");
 
 	}
 

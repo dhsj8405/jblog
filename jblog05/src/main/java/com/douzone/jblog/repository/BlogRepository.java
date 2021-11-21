@@ -43,14 +43,15 @@ public class BlogRepository {
 	}
 
 
-	public void insertCategory(CategoryVo categoryVo) throws BlogRepositoryException{	
-		sqlSession.insert("blog.insertCategory",categoryVo);
-
+	public boolean insertCategory(CategoryVo categoryVo) throws BlogRepositoryException{	
+		int count = sqlSession.insert("blog.insertCategory",categoryVo);
+		return count == 1;
 	}
 
 
-	public void deleteCategory(String categoryNo) throws BlogRepositoryException{
-		sqlSession.delete("blog.deleteCategory",categoryNo);
+	public boolean deleteCategory(String categoryNo) throws BlogRepositoryException{
+		int count = sqlSession.delete("blog.deleteCategory",categoryNo);
+		return count == 1;
 	}
 
 

@@ -82,7 +82,7 @@ div#container		{ text-align:left }
 div#content	.blog-content	{ padding:10px }
 .blog-content h4			{ font-size:1.3em; color:#9D96D0 }
 .blog-content p				{ margin-top:10px; line-height:150% }
-.blog-content .post-del		{ background: url("/jblog04/assets/images/delete.jpg") no-repeat 0 0;
+.blog-content .post-del		{ background: url("/jblog06/assets/images/delete.jpg") no-repeat 0 0;
 							  display:block;
  							  width:20px;
 							  height:20px;
@@ -109,12 +109,7 @@ div#content .admin-menu a				{ font-weight:bold }
 div#content .admin-config,
 div#content .admin-cat-add,
 div#content .admin-cat					{ border:none; width:720px; margin-top:30px }
-div#content .admin-cat .del				{background: url("/jblog04/assets/images/delete.jpg") no-repeat 0 0;
-										 display:block;
-										 width:20px;
-										 height:20px;
-										 font-size:0; }
-	
+div#content .admin-cat-body .delete-img	{ cursor:pointer; }
 
 
 .admin-config td.t						{ padding:5px 0; width:75px }

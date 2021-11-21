@@ -1,0 +1,32 @@
+<%
+	  for(i=0 ; i < data.length; i ++){
+	 	var vo = data[i];
+	  	if(vo.postCount == null){
+		  	vo.postCount = '';
+	  	}
+	
+%>
+	
+		<tr value='<%=vo.no%>'>
+		<%
+		  	if(i==0){
+		%>
+				<td><%=vo.name%></td>
+				<td><%=vo.postCount%></td>
+				<td><%=vo.description%></td>
+				<td></td>
+		<%
+			} else{
+		%>
+
+				<td><%=vo.name%></td>
+				<td><%=vo.postCount%></td>
+				<td><%=vo.description%></td>
+				<td><img src="<%=path%>/assets/images/delete.jpg" value1="<%=vo.no%>" value2="<%=vo.postCount%>" class="delete-img"></td>
+		<%
+			}
+		%>	
+		</tr>
+<%
+	}
+%>

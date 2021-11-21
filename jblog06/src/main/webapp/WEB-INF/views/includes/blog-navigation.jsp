@@ -5,7 +5,7 @@
 
     
 	<ul class="admin-menu">
-		<li><a href="${pageContext.request.contextPath}/blog/adminBasic/${authUser.id}">기본설정</a></li>
-		<li><a href="${pageContext.request.contextPath}/blog/adminCategory/${authUser.id}">카테고리</a></li>
-		<li><a href="${pageContext.request.contextPath}/blog/adminWrite/${authUser.id}">글작성</a></li>
+		<li><a href="${pageContext.request.contextPath}/${authUser.id}/adminBasic">기본설정</a></li>
+		<li><a href="${pageContext.request.contextPath}/${authUser.id}/adminCategory">카테고리</a></li>
+		<li><a href="${pageContext.request.contextPath}/${authUser.id}/adminWrite">글작성</a></li>
 	</ul>    

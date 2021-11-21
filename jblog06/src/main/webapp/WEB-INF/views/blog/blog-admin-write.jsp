@@ -8,7 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
-<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
 $(function(){
@@ -26,6 +28,7 @@ $(function(){
 		}
 
 	});
+	
 });
 </script>
 </head>
@@ -37,7 +40,7 @@ $(function(){
 			<div id="content" class="full-screen">
 				<c:import url="/WEB-INF/views/includes/blog-navigation.jsp" />
 
-				<form action="${pageContext.request.contextPath}/blog/adminWrite/${blogVo.id }/" method="post">
+				<form action="${pageContext.request.contextPath}/${blogVo.id }/adminWrite/" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
@@ -62,14 +65,13 @@ $(function(){
 			      			</td>
 			      		</tr>
 			      	</table>
+			      
 				</form>
+				
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>
+		<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
+
 	</div>
 </body>
 </html>

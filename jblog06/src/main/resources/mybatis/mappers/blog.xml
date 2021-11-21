@@ -63,13 +63,25 @@
 	
 	<insert id="insertCategory" parameterType ="categoryvo">
 		<![CDATA[
-			insert into category values(null, #{name} , #{description}, #{blogId } )
+			
+			insert into category (no, name, `desc` ,blog_id) 
+	 			                  select null, #{name} , #{description}, #{blogId} 
+             					    from dual 
+				  		           where not exists (select no, name, `desc`, blog_id  
+                           		            		   from category 
+										              where name = #{name});
+			
 		]]>
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+			select last_insert_id()
+			]]>
+		</selectKey>
 	</insert>
 	
 	<delete id="deleteCategory" parameterType="string" > 
 		<![CDATA[
-			delete from category where no = #{categoryNo } and category.name != '미분류'
+			delete from	 category where no = #{categoryNo } and category.name != '미분류'
 		]]>	
 	</delete>
 	

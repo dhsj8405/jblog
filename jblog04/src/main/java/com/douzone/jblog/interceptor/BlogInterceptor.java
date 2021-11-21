@@ -28,9 +28,12 @@ public class BlogInterceptor extends HandlerInterceptorAdapter {
 		if(path.equals("/")) {
 			return true;
 		}
+		//url에서 id 추출
 		if(path.indexOf("/", 1) < 0) {
+			//url에 id만 있을경우 
 			pathId = path.substring(path.indexOf("/", 0)+1);
 		} else {
+			//url이 id/** 일 경우 id만 추출하기
 			pathId = path.substring(path.indexOf("/", 0)+1, path.indexOf("/", 1));
 		}
 		
