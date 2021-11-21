@@ -1,6 +1,7 @@
 
 /* reset */
 *				{ margin:0; padding:0 }
+html			{}
 body			{ font:0.75em "맑은 고딕", 돋움, 굴림; text-align:center; color:#111; }
 ul, ol			{ list-style-type: none }
 fieldset		{ border:none }
@@ -53,14 +54,14 @@ a:hover 		{ color:#dc143c; text-decoration:none; font-weight:bold; }
 
 
 
-div#container				{ width:920px; height:1080px; ;margin:0 auto }
+div#container				{ width:920px; height:1080px; margin:0 auto }
 div#header					{ height:120px; background: #5394CC;  }
 
 div#content					{ float:left; width:720px; min-height:220px }
 div#content.full-screen		{ float:none; width:920px;}
 div#navigation				{ float:right; width:200px }
 div#extra					{ float:right; clear:right; width:200px }
-div#footer					{ clear:both; width:100% }
+div#footer					{ clear:both; width:920px; margin:0 auto }
 
 /* header */
 div#header h1			{ text-align:center; line-height:100px; margin:0; color:#fff }
@@ -75,22 +76,32 @@ div#header li a:hover	{ color: #fff; text-decoration:none;}
 #header h1 a:visited { color:#79B30B; text-decoration:none  }
 #header h1 a:active  { color:#79B30B; text-decoration:none  }
 
-div#container		{ text-align:left }
+div#container		{ text-align:left;
+					  height:100vh;
+					  background-color:#F0F0F0}
 
 
 /* content */
-div#content	.blog-content	{ padding:10px }
+div#content	.blog-content	{ margin: 10px;
+							  padding:10px ;
+							  background-clip:padding-box;
+							  background-color: #fff;}
 .blog-content h4			{ font-size:1.3em; color:#9D96D0 }
+.blog-content h5			{ color:#D8D8D8 }
 .blog-content p				{ margin-top:10px; line-height:150% }
-.blog-content .post-del		{ background: url("/jblog03/assets/images/delete.jpg") no-repeat 0 0;
+.blog-content .post-del		{ background: url("/jblog04/assets/images/delete.jpg") no-repeat 0 0;
 							  display:block;
  							  width:20px;
 							  height:20px;
 							  font-size:0; 
 							  float: right;}
-div#content .blog-list		{ margin:20px 0 10px 10px }
-.blog-list 					{ width:100% }
-.blog-list li				{ height:20px; clear:both; }
+div#content .blog-list		{ width: 680px;
+							  margin: 10px;
+							  padding: 10px;
+							  background-color: #fff;
+							  background-clip:padding-box;}
+.blog-list 					{ width:100%; }
+.blog-list li				{ width: 100%; height:20px; clear:both; }
 .blog-list li a				{ display:block; float:left }
 .blog-list li span			{ display:block; float:right; margin-right:30px }
 
@@ -129,7 +140,10 @@ div#content .admin-cat-body .delete-img	{ cursor:pointer; }
 .admin-cat-write td.s					{ padding:10px 0; text-align:center }
 
 /* navigator */
-div#navigation							{ background-color:#F9F9F9 }
+div#navigation							{ background-clip:padding-box;
+										  background-color:#fff;
+										  
+										  }
 div#navigation h2, div#navigation ul	{ margin-left:10px }
 div#navigation h2						{ font-size:1.0em }
 div#navigation ul						{ margin-top:5px; margin-bottom:10px }
@@ -138,12 +152,12 @@ div#navigation ul a						{ font-weight:normal }
 
 
 /* extra */
-div#extra					{ background-color:#F9F9F9 }
+div#extra					{ background-color:#fff }
 div#extra .blog-logo		{ margin:0 0 0 10px }
 div#extra .blog-logo img	{ width:150px }
 
 /* footer */
-div#footer		{ background:#F0F0F0; color:#666 }
+div#footer		{ background:#969696; color:#666 }
 div#footer p	{ text-align:center; margin:0; padding:8px 10px }
 
 

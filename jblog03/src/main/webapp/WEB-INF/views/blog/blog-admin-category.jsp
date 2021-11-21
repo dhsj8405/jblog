@@ -198,17 +198,7 @@ $(function(){
 						<th>삭제</th>
 					</tr>
 					<tbody class="admin-cat-body"></tbody> 
-				<%-- 	<tbody class="admin-cat-body">
-						<c:forEach items="${categoryList }" var="vo" varStatus="status">
-							<tr>
-								<td>${status.index}</td>
-								<td>${vo.name }</td>
-								<td>${vo.postCount }</td>
-								<td>${vo.description}</td>
-								<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg" value="${vo.no }" class="delete-img"></td>
-							</tr>
-						</c:forEach>
-					</tbody> --%>
+			
 
 				</table>
 

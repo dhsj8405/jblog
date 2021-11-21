@@ -93,23 +93,24 @@ public class BlogController {
 	
 	@Auth
 	@RequestMapping(value="/adminCategory", method=RequestMethod.GET)
-	public String category(
-			@PathVariable("blogId") String blogId,
-			Model model) {
-		List<CategoryVo> categoryList = blogService.getCategories(blogId);
-		model.addAttribute("categoryList",categoryList);
+	public String category(/*
+	 * @PathVariable("blogId") String blogId, Model model
+	 */
+		) {
+//		List<CategoryVo> categoryList = blogService.getCategories(blogId);
+//		model.addAttribute("categoryList",categoryList);
 		return "blog/blog-admin-category";
 	}
 	
-	@Auth
-	@RequestMapping(value="/adminCategory", method=RequestMethod.POST)
-	public String category(
-			@ModelAttribute CategoryVo categoryVo
-			) {
-		
-			blogService.addCategory(categoryVo);
-		return "redirect:/"+categoryVo.getBlogId()+"/adminCategory/"; 
-	}
+//	@Auth
+//	@RequestMapping(value="/adminCategory", method=RequestMethod.POST)
+//	public String category(
+//			@ModelAttribute CategoryVo categoryVo
+//			) {
+//		
+//			blogService.addCategory(categoryVo);
+//		return "redirect:/"+categoryVo.getBlogId()+"/adminCategory/"; 
+//	}
 	
 //	@Auth
 //	@RequestMapping(value="/categoryDelete/{categoryNo}", method=RequestMethod.GET)
