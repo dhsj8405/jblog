@@ -26,6 +26,7 @@
 				</ul>
 				<div class="blog-content">
 
+					<h5>${map.post.categoryName }</h5>
 					<c:if test="${empty map.post}">
 						<h4>포스트를 입력해주세요</h4>
 						<p>
@@ -33,7 +34,7 @@
 						<p>
 					</c:if>
 					<c:if test="${map.post != null}">
-						<h5>${map.post.categoryName }</h5>
+						
 						<h4>${map.post.title }
 							<c:if test="${authUser.id == blogVo.id }">
 								<a href="${pageContext.request.contextPath }/${blogVo.id }/postDelete/${map.post.categoryNo }/${map.post.no }" class="post-del" >삭제</a>
@@ -65,8 +66,9 @@
 					<li><a href="${pageContext.request.contextPath}/${blogVo.id}/${categoryVo.no}">${categoryVo.name}</a></li>
 				</c:forEach>
 			</ul>
+			<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
 		</div>
-		<c:import url="/WEB-INF/views/includes/blog-footer.jsp" />
+		
 		
 		
 	</div>
