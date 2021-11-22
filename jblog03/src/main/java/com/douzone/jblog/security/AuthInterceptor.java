@@ -60,10 +60,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			return false;
 
 		}
+		
 		Map pathVariables = (Map) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);		
 		String blogId = (String)pathVariables.get("blogId");
 		
-
 		if(authUser.getId().equals(blogId) == false) {
 			response.sendRedirect(request.getContextPath() );
 			return false;
